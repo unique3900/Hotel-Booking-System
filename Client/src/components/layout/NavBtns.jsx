@@ -39,7 +39,7 @@ const NavBtns = (props) => {
 
             {
             stat == true && (
-                <div className="absolute top-28 left-4 flex w-fit bg-white bg-opacity-20 px-5 h-fit lg:hidden">
+                <div className="absolute z-50 top-28 left-4 flex w-fit bg-white  px-5 h-fit lg:hidden">
                     <ul className={`flex flex-col text-black items-baseline text-lg font-semibold `}>
                         {
                         btnItems.map((item, index) => {
