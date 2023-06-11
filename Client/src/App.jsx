@@ -1,15 +1,15 @@
 import React from 'react'
+import Navbar from './components/layout/Navbar'
 
 const App = () => {
-  return (
-    <div>
-     <div className="text-6xl text-red-600">
-                <button className="px-6 py-2 rounded bg-green-800 hover:bg-green-600 text-white" type="button" onClick={() => setCount((count) => count + 1)}>
-                    count+
-                </button>
+    return (
+        <div>
+            <div className="h-screen w-full bg-blue-500">
+
+                <Navbar/>
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default App
