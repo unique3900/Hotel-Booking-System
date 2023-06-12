@@ -5,8 +5,8 @@ import React, {
 
 const NavBtns = (props) => {
     const btnItems = [
-        "Post Now",
-        "Bookings",
+        "Add Advertisement",
+        "My Bookings",
         "About Us",
         "Contact Us",
         "Terms and Conditions",
@@ -22,11 +22,11 @@ const NavBtns = (props) => {
         <>
             <div className="relative hidden lg:flex ">
 
-                <ul className={`flex flex-row justify-between items-center space-x-10  text-orange-800 text-lg font-semibold `}>
+                <ul className={`flex flex-row justify-between md:gap-2 items-center space-x-10  text-orange-800 text-lg font-semibold `}>
                     {
                     btnItems.map((item, index) => {
                         return (
-                            <li className="relative group text-[18px] whitespace-nowrap"
+                            <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap"
                                 key={index}>
                                 <button className="py-2">
                                     {item}</button>

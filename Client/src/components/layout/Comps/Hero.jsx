@@ -1,8 +1,10 @@
 import React from 'react'
-import './Hero.css'
+import '../Hero.css'
 import Select from 'react-select';
-import { colourOptions } from '../../Data/data';
+import { colourOptions } from '../../../Data/data';
+
 const Hero = () => {
+   
     return (
         <section className="relative lg:h-[75%] h-screen flex flex-col items-center justify-center text-center text-white py-0 px-3">
             <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
@@ -21,11 +23,11 @@ const Hero = () => {
             <div className="lg:absolute -bottom-5 z-10 bg-teal-700 rounded-lg shadow-lg p-10 w-[90%] mt-10">
                 <div className="flex flex-col lg:flex-row justify-evenly gap-3">
                     <div className="flex flex-row justify-between items-center gap-2">
-                        <label htmlFor="" className="">Book From:</label>
+                        <label htmlFor="" className="">Check in Date:</label>
                         <input type="date" className='border-none w-44 rounded-md outline-none p-1 text-black' name="" id=""/>
                     </div>
                     <div className="flex flex-row justify-between items-center gap-2">
-                        <label htmlFor="" className="">Book To:</label>
+                        <label htmlFor="" className="">Check out Date:</label>
                         <input type="date" className='border-none w-44 rounded-md outline-none p-1 text-black' name="" id=""/>
                     </div>
                     <div className="flex flex-row justify-between items-center gap-2">
