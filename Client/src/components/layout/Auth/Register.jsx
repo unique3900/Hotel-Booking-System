@@ -27,7 +27,7 @@ const Register = () => {
                 {/* Right */}
 
           <div className="flex flex-col w-full items-center gap-5 py-10 px-5">
-                <form className="w-full"
+                <form className="w-full flex flex-col gap-2"
                     onSubmit={handleSubmit}>
                     <div className="">
                         <h3 className="text-4xl text-center font-bold">Register</h3>
