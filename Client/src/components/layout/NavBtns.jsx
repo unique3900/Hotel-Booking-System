@@ -67,26 +67,26 @@ const NavBtns = (props) => {
                 <div className="absolute z-50 top-28 left-4 flex w-fit bg-white  px-5 h-fit lg:hidden">
                     <ul className={`flex flex-col text-black items-baseline text-lg font-semibold `}>
 
-                        <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
-                            <Link className="py-2">Add Advertisement</Link>
-                           
-                        </li>
-                        <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
-                            <Link className="py-2">Bookings</Link>
-                           
-                        </li>
-                        <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
-                            <Link className="py-2">Contact us</Link>
-                           
-                        </li>
-                        <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
-                            <Link className="py-2">About us</Link>
-                           
-                        </li>
-                        <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
-                            <Link className="py-2">Terms and Condition</Link>
-                           
-                        </li>
+                    <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
+                        <Link  to={'/add-advertisement'}className="py-2">Add Advertisement</Link>
+                       
+                    </li>
+                    <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
+                        <Link to={'/bookings'} className="py-2">Bookings</Link>
+                        
+                    </li>
+                    <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
+                        <Link to={'/contact'} className="py-2">Contact us</Link>
+                        
+                    </li>
+                    <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
+                        <Link to={'/about'} className="py-2">About us</Link>
+                        
+                    </li>
+                    <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
+                        <Link to={'/terms'} className="py-2">Terms and Condition</Link>
+                        
+                    </li>
                     </ul>
                 </div>
             )

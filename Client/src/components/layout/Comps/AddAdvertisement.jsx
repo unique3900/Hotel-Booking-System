@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select';
 import { roomType } from '../../../Data/data';
 const AddAdvertisement = () => {
+    const [extraCheck, setExtraCheck] = useState([]);
+
+
+    const handleCheck = (e) => {
+        const checkedVal = e.target.value;
+        const checkedStat = e.target.checked;
+
+        if (checkedStat) {
+            setExtraCheck([...extraCheck, checkedVal]);
+        }
+        else {
+            setExtraCheck(extraCheck.filter((e) => {
+                e!==checkedVal
+            }))
+        }
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(extraCheck)
     }
     return (
         <div className='h-screen flex items-center justify-center bg-teal-500 bg-opacity-60 px-10'>
@@ -20,7 +37,7 @@ const AddAdvertisement = () => {
                         <div className="flex flex-col justify-start gap-2 w-full">
                             <label htmlFor="" className="text-lg text-gray-500">Property Name</label>
                             <input type="text"
-                                value={''}
+                                value='xx'
 
                                 name=""
                                 className='outline-double outline-[#00388D] border-black px-3 py-2'
@@ -30,7 +47,7 @@ const AddAdvertisement = () => {
                         <div className="flex flex-col justify-start gap-2 w-full">
                             <label htmlFor="" className="text-lg text-gray-500">Number of Rooms</label>
                             <input type="number"
-                                value={''}
+                                
 
                                 name=""
                                 className='outline-double outline-[#00388D] border-black px-3 py-2'
@@ -61,23 +78,23 @@ const AddAdvertisement = () => {
                             <div className="flex flex-col lg:flex-row justify-between ">
                                 <div className="flex flex-row justify-between gap-2">
                                         <label htmlFor="" className="text-md text-gray-500 ">Smoking</label>
-                                         <input type="checkbox" value={'Smoking Room'}  name="" id="" />
+                                    <input type="checkbox" value='smoking' onChange={handleCheck}  name="" id="" />
                                 </div>
                                 <div className="flex flex-row justify-between gap-2">
                                         <label htmlFor="" className="text-md text-gray-500 ">Swimming Pool</label>
-                                         <input type="checkbox" value={'Swimming Pool'}  name="" id="" />
+                                         <input type="checkbox"  value='swimming pool' onChange={handleCheck}  name="" id="" />
                                 </div>
                                 <div className="flex flex-row justify-between gap-2">
                                         <label htmlFor="" className="text-md text-gray-500 ">Breakfast</label>
-                                         <input type="checkbox" value={'Breakfase'}  name="" id="" />
+                                         <input type="checkbox" value='breakfast' onChange={handleCheck} name="" id="" />
                                 </div>
                                 <div className="flex flex-row justify-between gap-2">
                                         <label htmlFor="" className="text-md text-gray-500">Dinner</label>
-                                         <input type="checkbox" value={'Dinner'}  name="" id="" />
+                                         <input type="checkbox" value='dinner' onChange={handleCheck}  name="" id="" />
                                 </div>
                                 <div className="flex flex-row justify-between gap-2">
                                         <label htmlFor="" className="text-md text-gray-500">Lunch</label>
-                                         <input type="checkbox" value={'Lunch'}  name="" id="" />
+                                         <input type="checkbox" value='lunch' onChange={handleCheck}  name="" id="" />
                                 </div>
                                 
                             </div>
