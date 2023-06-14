@@ -16,7 +16,9 @@ const Navbar = () => {
 
     const handleLogout = () => {
         setUser(null);
+        document.cookie = "token"+'=; Max-Age=-99999999;'; 
         navigate('/login')
+        
     }
     
     return (
@@ -58,10 +60,10 @@ const Navbar = () => {
                 ) : (
                         <div className="flex items-center justify-between gap-2">
                                 <BiLogIn className="w-10 h-10 cursor-pointer" onClick={handleLogout}>Logout</BiLogIn>
-                            <div className="flex gap-1 items-center cursor-pointer bg-gray-200 rounded-full p-3">
+                            <Link to={`/my-account`} className="flex gap-1 items-center cursor-pointer bg-gray-200 rounded-full p-3">
                                 <BiUserCircle className="w-10 h-10 " />
                                 <p className="italic whitespace-pre-wrap ">{user.fullName }</p>
-                                </div>
+                                </Link>
                         </div>
                     
                 )

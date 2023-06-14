@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {
     useContext,
+    useEffect,
     useState
 } from 'react'
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +12,14 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const { setUser,user } = useContext(UserContext);
+    const { setUser, user } = useContext(UserContext);
+    
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [])
+    
     
     const handleSubmit = async(e) => {
         e.preventDefault();

@@ -91,9 +91,7 @@ app.get('/api/v1/profile', async (req, res) => {
                 res.json({success:true,fullName,email,_id,phone})
             })
         }
-        else {
-            res.json({success:false,message:"Token Not Found"})
-        }
+
     } catch (error) {
         console.log("Internal Server error Login",error)
     }

@@ -6,6 +6,7 @@ import Login from './components/layout/Auth/Login';
 import Register from './components/layout/Auth/Register';
 import AddAdvertisement from './components/layout/Comps/AddAdvertisement';
 import axios from 'axios';
+import MyProfile from './components/layout/Comps/MyProfile';
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -19,7 +20,8 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<Hero/>}/>
                     <Route path='/login' element={<Login/>} />
-                    <Route path='/register' element={<Register/>} />
+                    <Route path='/register' element={<Register />} />
+                    <Route path='/my-account/:subpage?' element={<MyProfile />} />
                     <Route path='/add-advertisement' element={<AddAdvertisement/>} />
                 </Routes>
             </div>
