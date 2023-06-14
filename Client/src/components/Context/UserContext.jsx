@@ -9,7 +9,6 @@ export function UserContextProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-       
             if (!user) {
                 axios.get('/api/v1/profile').then(({ data }) => {
                     console.log(data)

@@ -8,11 +8,13 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const User = require('./Model/User');
 const bcrypt = require('bcrypt');
+const imageDownloader = require('image-downloader');
 const app = express();
 
 app.use(express.json({limit : 52428800}));
 app.use(morgan('dev'));
 app.use(cookieParser());
+app.use('/uploads', express.static( __dirname + '/uploads'));
 app.use(cors({
     origin: 'http://127.0.0.1:5173',
     credentials: true,
@@ -85,17 +87,31 @@ app.get('/api/v1/profile', async (req, res) => {
     const { token } = req.cookies;
     try {
         if (token) {
-            jwt.verify(token, SECRET_KEY, {},async (err, user) => {
+            jwt.verify(token, SECRET_KEY, {}, async (err, user) => {
                 if (err) throw err;
                 const { fullName, email, _id, phone } = await User.findById(user.id);
-                res.json({success:true,fullName,email,_id,phone})
+                res.json({ success: true, fullName, email, _id, phone })
             })
         }
 
     } catch (error) {
-        console.log("Internal Server error Login",error)
+        console.log("Internal Server error Login", error)
     }
 
+});
+
+app.post('/api/v1/upload-ad-img', async (req, res) => {
+    const { imageURL } = req.body;
+    try {
+        const newName = 'photo' + Date.now() + '.jpg';
+        await imageDownloader.image({
+            url: imageURL,
+            dest: __dirname+'/uploads/'+newName,
+        });
+        res.json({ op: newName});
+    } catch (error) {
+        console.log("Internal Server error upload img",error)
+    }
 })
 
 const port = process.env.PORT;

@@ -9,7 +9,7 @@ const MyProfile = () => {
     const { subpage } = useParams(); 
 
     useEffect(() => {
-        if (!user && loading) {
+        if (!user && !loading) {
                navigate('/login')
             }
     }, [user])
@@ -41,7 +41,12 @@ const MyProfile = () => {
           </div>
           
           <div className="w-full shadow-xl flex flex-col justify-center">
-              <h1 className='text-2xl font-bold text-center capitalize'>{subpage}</h1>
+        {
+          
+          subpage == 'my-profile' && (
+            <h1>Hey</h1>
+          )
+              }
              
           </div>
     </div>
