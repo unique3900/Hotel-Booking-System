@@ -26,6 +26,9 @@ mongoose.connect(process.env.MONGODB_URL);
 app.post('/api/v1/register', async (req, res) => {
     const { fullname, email, password, phone } = req.body;
     try {
+        if (!email || !password || !fullname || !phone) {
+            res.json({ success: false, message: "Fill out Every field" });
+        }
         const userExist = await User.findOne({email});
         if (userExist) {
             res.json({ success: false, message: "User Already Exist" });
@@ -61,7 +64,7 @@ app.post('/api/v1/login', async (req, res) => {
                     id:userExist._id
                 }, SECRET_KEY, {}, (err, token) => {
                     if (err) throw err;
-                    res.cookie("token",token).json({success:true,message:"User Authenticated",userExist})
+                    res.cookie("token",token).json({success:true,message:"User Authenticated",userExist,token})
                 })
             }
             else {
@@ -74,6 +77,27 @@ app.post('/api/v1/login', async (req, res) => {
     } catch (error) {
         console.log("Internal Server error Login",error)
     }
+})
+
+//====================User Profile ==========================
+app.get('/api/v1/profile', async (req, res) => {
+    const SECRET_KEY = process.env.JWT_SECRET;
+    const { token } = req.cookies;
+    try {
+        if (token) {
+            jwt.verify(token, SECRET_KEY, {},async (err, user) => {
+                if (err) throw err;
+                const { fullName, email, _id, phone } = await User.findById(user.id);
+                res.json({success:true,fullName,email,_id,phone})
+            })
+        }
+        else {
+            res.json({success:false,message:"Token Not Found"})
+        }
+    } catch (error) {
+        console.log("Internal Server error Login",error)
+    }
+
 })
 
 const port = process.env.PORT;

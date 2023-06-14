@@ -2,9 +2,11 @@ import axios from 'axios';
 import React, {
     useState
 } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [fullname, setFullname] = useState("");
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
@@ -25,6 +27,7 @@ const Register = () => {
         });
         if (data.success) {
             alert(data.message)
+            navigate('/login');
         }
         else {
             alert(data.message)

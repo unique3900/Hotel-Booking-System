@@ -1,12 +1,17 @@
 import axios from 'axios';
 import React, {
+    useContext,
     useState
 } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../Context/UserContext';
 
 const Login = () => {
    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const { setUser,user } = useContext(UserContext);
     
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -20,7 +25,10 @@ const Login = () => {
             password
         });
         if (data.success) {
-            alert(data.message)
+            alert(data.message);
+            setUser(data.userExist)
+            console.log(user);
+            navigate('/');
         }
         else {
             alert(data.message)
