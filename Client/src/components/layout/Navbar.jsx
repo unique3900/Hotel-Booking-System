@@ -11,7 +11,7 @@ const Navbar = () => {
     const [navStatus, setnavStatus] = useState(false);
     
     return (
-        <div className='w-full text-black  bg-white flex justify-between items-center px-10'>
+        <div className='w-full text-black  bg-white flex justify-between items-center px-10 z-20'>
             {/* Left */}
 
             <div className=" lg:hidden ">

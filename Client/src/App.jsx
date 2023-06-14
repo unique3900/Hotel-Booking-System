@@ -5,7 +5,11 @@ import { Routes, Route } from "react-router-dom"
 import Login from './components/layout/Auth/Login';
 import Register from './components/layout/Auth/Register';
 import AddAdvertisement from './components/layout/Comps/AddAdvertisement';
+import axios from 'axios';
 
+
+axios.defaults.baseURL = 'http://127.0.0.1:8080';
+axios.defaults.withCredentials = true;
 const App = () => {
     return (
         <div>

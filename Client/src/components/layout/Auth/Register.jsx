@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {
     useState
 } from 'react'
@@ -7,7 +8,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         if (!fullname || !email || !password || !phone) {
             console.log("Fill Every Field")
@@ -16,6 +17,19 @@ const Register = () => {
             console.log("Invalid Phone Number")
         }
         console.log(phone, email, fullname, password);
+        const { data } = await axios.post('/api/v1/register', {
+            fullname,
+            email,
+            password,
+            phone
+        });
+        if (data.success) {
+            alert(data.message)
+        }
+        else {
+            alert(data.message)
+        }
+       
     }
     return (
         <div className='h-screen flex items-center justify-center bg-teal-500 bg-opacity-60 px-10'>
@@ -91,10 +105,10 @@ const Register = () => {
 
     <div className="flex flex-col justify-start gap-2 w-full">
 
-        <input type="submit" name="" className='outline-double bg-[#00388D] cursor-pointer text-white border-black px-3 py-2' id=""/>
+        <input type="submit" value="Register" name="" className='outline-double bg-[#00388D] cursor-pointer text-white border-black px-3 py-2' id=""/>
 
     </div>
-    <button className="mt-5 w-full bg-teal-700 text-white shadow-md border-black py-2">Signup With Google</button>
+
 
             </form>
             </div>

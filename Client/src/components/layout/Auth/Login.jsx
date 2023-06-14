@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {
     useState
 } from 'react'
@@ -7,13 +8,23 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         if (!email || !password ) {
             console.log("Fill Every Field")
         }
 
-        console.log( email, password);
+        console.log(email, password);
+        const { data } = await axios.post('/api/v1/login', {
+            email,
+            password
+        });
+        if (data.success) {
+            alert(data.message)
+        }
+        else {
+            alert(data.message)
+        }
     }
     return (
       <div className='h-screen flex items-center justify-center bg-teal-500 bg-opacity-60 px-10'>
@@ -66,7 +77,7 @@ const Login = () => {
       <input type="submit" name="" className='outline-double bg-[#00388D] cursor-pointer text-white border-black px-3 py-2' id=""/>
 
   </div>
-  <button className="mt-5 w-full bg-teal-700 text-white shadow-md border-black py-2">Login With Google</button>
+
           </form>
           </div>
   
