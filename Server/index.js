@@ -9,6 +9,8 @@ const jwt = require('jsonwebtoken');
 const User = require('./Model/User');
 const bcrypt = require('bcrypt');
 const imageDownloader = require('image-downloader');
+const fs = require('fs');
+const multer = require('multer');
 const app = express();
 
 app.use(express.json({limit : 52428800}));
@@ -112,6 +114,27 @@ app.post('/api/v1/upload-ad-img', async (req, res) => {
     } catch (error) {
         console.log("Internal Server error upload img",error)
     }
+})
+
+// =============== Upload Local Image =====================
+const photoMiddleware = multer({dest:'uploads/'});
+app.post('/api/v1/upload', photoMiddleware.array('photos', 100), async (req, res) => {
+    //    Reference youtube: Coding with David
+    try {
+        const uploadedFiles = [];
+    for (let i = 0; i < req.files.length; i++){
+        const {path,originalname} = req.files[i];
+        const parts = originalname.split('.');
+        const ext = parts[parts.length - 1];
+        const newPath = path + '.' + ext;
+        fs.renameSync(path, newPath);
+        uploadedFiles.push(newPath.replace('uploads\\',''));
+    }
+    res.json({success:true,message:"Image Uploaded",op:uploadedFiles});
+    } catch (error) {
+        console.log(error)
+    }
+    
 })
 
 const port = process.env.PORT;
