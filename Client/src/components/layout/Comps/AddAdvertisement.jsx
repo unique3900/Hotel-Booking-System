@@ -14,10 +14,10 @@ import {
     useNavigate
 } from 'react-router-dom';
 import axios from 'axios';
-import {
-    AiOutlineCloudUpload
-} from 'react-icons/ai'
-import AddAdvertisementForm from './AddAdvertisementForm';
+
+
+import AdExtraFeature from './AdExtraFeature';
+import ImageUploader from './ImageUploader';
 const AddAdvertisement = () => {
     const {
         user,
@@ -45,21 +45,7 @@ const AddAdvertisement = () => {
 
     }, [user])
 
-    const handleCheck = (e) => {
-        const checkedVal = e.target.value;
-        const checkedStat = e.target.checked;
 
-        if (checkedStat) {
-            setExtraCheck([
-                ...extraCheck,
-                checkedVal
-            ]);
-        } else {
-            setExtraCheck(extraCheck.filter((e) => {
-                e !== checkedVal
-            }))
-        }
-    }
     const addPhotoViaUrl = async (e) => {
         e.preventDefault();
         const {
@@ -230,87 +216,12 @@ const AddAdvertisement = () => {
                         </div>
 
                         <div className="flex lg:flex-col justify-start gap-2 w-full ">
-                            <label htmlFor="" className="text-lg text-gray-500">What you Offer?</label>
-                            <div className="flex flex-col lg:flex-row justify-between ">
-                                <div className="flex flex-row justify-between gap-2">
-                                    <label htmlFor="" className="text-md text-gray-500 ">Smoking</label>
-                                    <input type="checkbox" value='smoking'
-                                        onChange={handleCheck}
-                                        name=""
-                                        id="" />
-                                </div>
-                                <div className="flex flex-row justify-between gap-2">
-                                    <label htmlFor="" className="text-md text-gray-500 ">Swimming Pool</label>
-                                    <input type="checkbox" value='swimming pool'
-                                        onChange={handleCheck}
-                                        name=""
-                                        id="" />
-                                </div>
-                                <div className="flex flex-row justify-between gap-2">
-                                    <label htmlFor="" className="text-md text-gray-500 ">Breakfast</label>
-                                    <input type="checkbox" value='breakfast'
-                                        onChange={handleCheck}
-                                        name=""
-                                        id="" />
-                                </div>
-                                <div className="flex flex-row justify-between gap-2">
-                                    <label htmlFor="" className="text-md text-gray-500">Dinner</label>
-                                    <input type="checkbox" value='dinner'
-                                        onChange={handleCheck}
-                                        name=""
-                                        id="" />
-                                </div>
-                                <div className="flex flex-row justify-between gap-2">
-                                    <label htmlFor="" className="text-md text-gray-500">Lunch</label>
-                                    <input type="checkbox" value='lunch'
-                                        onChange={handleCheck}
-                                        name=""
-                                        id="" />
-                                </div>
-
-                            </div>
-
+                            
+                            <AdExtraFeature selected={[extraCheck]} onChange={setExtraCheck} />
 
                         </div>
                         <div className="flex flex-col justify-start  w-full gap-2">
-                            <label htmlFor="" className="text-lg text-gray-500">Upload Photos</label>
-                            <div className="flex flex-row gap-2 w-full">
-                                <input value={imageURL}
-                                    type="url"
-                                    name=""
-                                    id=""
-                                    placeholder='Upload via URL '
-                                    className='outline-double outline-[#00388D] border-black px-3 py-2 w-full'
-                                    onChange={
-                                        (e) => {
-                                            setImageUrl(e.target.value)
-                                        }
-                                    } />
-                                <button className="p-2 rounded-lg bg-purple-600 text-white cursor-pointer flex-nowrap"
-                                    onClick={addPhotoViaUrl}>Add Photo</button>
-
-                            </div>
-                            <div className="flex flex-row gap-2 flex-wrap">
-
-                                {
-                                    uploadedImage.length > 0 && uploadedImage.map((item, index) => (
-                                        <div className="w-36 h-36 "
-                                            key={index}>
-                                            <img src={
-                                                'http://localhost:8080/uploads/' + item
-                                            }
-                                                alt="" />
-                                        </div>
-                                    ))
-                                } </div>
-
-                            <div className="">
-                                <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
-                                    <input type="file" multiple accept="image/*" onChange={uploadLocalImage} className="hidden" />
-                                    <AiOutlineCloudUpload />
-                                    Upload
-                                </label>
-                            </div>
+                            <ImageUploader imageLink={imageURL} imageLinkSetter={setImageUrl} handleUrlUpload={addPhotoViaUrl} addedImages={uploadedImage } localImageAdder={uploadLocalImage}  />
 
 
                         </div><input type="submit" name="" className='outline-double bg-[#00388D] cursor-pointer text-white border-black px-3 py-2' id="" />
