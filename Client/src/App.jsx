@@ -22,7 +22,7 @@ const App = () => {
                     <Route path='/login' element={<Login/>} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/my-account/:subpage?' element={<MyProfile />} />
-                    <Route path='/my-account/my-advertisements' element={<AddAdvertisement/>} />
+                    {/* <Route path='/my-account/my-advertisements' element={<AddAdvertisement/>} /> */}
                     <Route path='/add-advertisement' element={<AddAdvertisement/>} />
                 </Routes>
             </div>

@@ -21,28 +21,29 @@ import ImageUploader from './ImageUploader';
 const AddAdvertisement = () => {
     const {
         user,
-        loading
+        loading,setLoading
     } = useContext(UserContext);
     const navigate = useNavigate();
     const [extraCheck, setExtraCheck] = useState([]);
     const [propertyName, setPropertyName] = useState('');
     const [uploadedImage, setUploadedImage] = useState([]);
     const [propertyAddress, setPropertyAddress] = useState('');
-    const [propertyPhone, setPropertyPhone] = useState('');
+    
     const [propertyDesc, setPropertyDesc] = useState('');
     const [roomNumbers, setRoomNumbers] = useState('');
+    const [checkInDate, setCheckInDate] = useState('');
+    const [checkOutDate, setCheckOutDate] = useState('');
     const [roomTypeSel, setRoomTypeSel] = useState('');
     const [stayNumber, setStayNumber] = useState('');
     const [imageURL, setImageUrl] = useState('');
+    const [pricePerNight, setPricePerNight] = useState('');
     const [image, setStayImage] = useState('');
 
     useEffect(() => {
-        if (!user && !loading) {
+        if (!user && !loading ) {
             alert("Please Login to access this page")
             navigate('/login')
         }
-
-
     }, [user])
 
 
@@ -53,6 +54,7 @@ const AddAdvertisement = () => {
         } = await axios.post('/api/v1/upload-ad-img', {
             imageURL
         })
+        // setLoading(false);
         setUploadedImage((prev) => {
             return [
                 ...prev,
@@ -76,19 +78,30 @@ const AddAdvertisement = () => {
             headers: { 'Content-Type': 'multipart/form-data' }
        }).then(response => {
            const { data: filename } = response;
-           console.log(filename)
+           console.log(filename);
+        //    setLoading(false);
            setUploadedImage((prev) => {
                 return [...prev,...filename.op]
             })
        })
+       
+        
+        
         
 
     }
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(extraCheck);
 
-        console.log(propertyName, roomNumbers, roomTypeSel, stayNumber, image);
+
+
+
+    const handleSubmit =async (e) => {
+        e.preventDefault();
+        console.log([extraCheck]);
+        console.log(uploadedImage)
+        const datas = { propertyName, propertyDesc, propertyAddress, checkInDate, checkOutDate, uploadedImage, roomTypeSel,extraCheck, pricePerNight, stayNumber, roomNumbers };
+        
+        const { data } = await axios.post('/add-new-advertisement',datas)
+        console.log(data)
     }
     return (
         <div className='h-screen flex items-center place-items-center justify-center bg-teal-200 bg-opacity-60 px-10'>
@@ -133,20 +146,7 @@ const AddAdvertisement = () => {
 
                         </div>
 
-                        <div className="flex flex-col justify-start gap-2 w-full">
-                            <label htmlFor="" className="text-lg text-gray-500">Property Phone</label>
-                            <input type="text"
-                                value={propertyPhone}
-                                onChange={
-                                    (e) => {
-                                        setPropertyPhone(e.target.value)
-                                    }
-                                }
-                                name=""
-                                className='outline-double outline-[#00388D] border-black px-3 py-2'
-                                id="" />
 
-                        </div>
                         <div className="flex flex-col justify-start gap-2 w-full">
                             <label htmlFor="" className="text-lg text-gray-500">Property Description</label>
                             <textarea type="text"
@@ -214,17 +214,49 @@ const AddAdvertisement = () => {
                                 id="" />
 
                         </div>
+                        <div className="flex flex-col justify-start  w-full gap-2">
+                            <label htmlFor="" className="text-lg text-gray-500">Price Per Night <span className="italic text-sm">In Nrs</span></label>
+                            <input type="number"
+                                value={pricePerNight}
+                                onChange={
+                                    (e) => {
+                                        setPricePerNight(e.target.value)
+                                    }
+                                }
+                                name=""
+                                className='outline-double outline-[#00388D] border-black px-3 py-2'
+                                id="" />
+
+                        </div>
+                        
 
                         <div className="flex lg:flex-col justify-start gap-2 w-full ">
                             
-                            <AdExtraFeature selected={[extraCheck]} onChange={setExtraCheck} />
+                            <AdExtraFeature selected={extraCheck} onChange={setExtraCheck} />
 
                         </div>
                         <div className="flex flex-col justify-start  w-full gap-2">
                             <ImageUploader imageLink={imageURL} imageLinkSetter={setImageUrl} handleUrlUpload={addPhotoViaUrl} addedImages={uploadedImage } localImageAdder={uploadLocalImage}  />
 
 
-                        </div><input type="submit" name="" className='outline-double bg-[#00388D] cursor-pointer text-white border-black px-3 py-2' id="" />
+                        </div>
+                   
+                        <div className="w-full flex flex-col lg:flex-row justify-between gap-2">
+                            <div className="flex w-full  flex-col gap-2">
+                                <label htmlFor="" className="text-lg text-gray-500">Check In Date</label>
+                                <input type="date" value={checkInDate} onChange={(e) => {
+                                    setCheckInDate(e.target.value)
+                                }} className=' outline-double w-full px-2 py-2' name="" id=""  />
+                            </div>
+                            <div className="flex w-full flex-col gap-2">
+                                <label htmlFor="" className="text-lg text-gray-500">Check out Date</label>
+                                <input value={checkOutDate} onChange={(e) => {
+                                    setCheckOutDate(e.target.value)
+                                }} type="date" className=' outline-double w-full px-2 py-2' name="" id=""  />
+                                </div>
+                        </div>
+                        
+                        <input type="submit" name="" className='outline-double bg-[#00388D] cursor-pointer text-white border-black px-3 py-2' id="" />
                     </form>
 
 

@@ -38,7 +38,7 @@ const NavBtns = (props) => {
             <div className="relative hidden lg:flex ">
 
                 <ul className={`flex flex-row justify-between md:gap-2 items-center space-x-10  text-orange-800 text-lg font-semibold `}>
-
+                    
                     <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
                         <Link  to={'/add-advertisement'}className="py-2">Add Advertisement</Link>
                         <div className="absolute -bottom-[1.8rem] group-hover:flex hidden h-1 w-full bg-red-600 "></div>

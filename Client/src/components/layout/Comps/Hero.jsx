@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import '../Hero.css'
 import Select from 'react-select';
 import { colourOptions } from '../../../Data/data';
+import { UserContext } from '../../Context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
-   
+    const { user, setUser,loading } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    
     return (
         <section className="relative lg:h-[75%] h-screen flex flex-col items-center justify-center text-center text-white py-0 px-3">
             <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">

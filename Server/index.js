@@ -11,6 +11,7 @@ const bcrypt = require('bcrypt');
 const imageDownloader = require('image-downloader');
 const fs = require('fs');
 const multer = require('multer');
+const Advertisement = require('./Model/Advertisement');
 const app = express();
 
 app.use(express.json({limit : 52428800}));
@@ -65,7 +66,8 @@ app.post('/api/v1/login', async (req, res) => {
             if (passCheck) {
                 jwt.sign({
                     email: userExist.email,
-                    id:userExist._id
+                    id: userExist._id,
+                    phone:userExist.phone
                 }, SECRET_KEY, {}, (err, token) => {
                     if (err) throw err;
                     res.cookie("token",token).json({success:true,message:"User Authenticated",userExist,token})
@@ -137,6 +139,43 @@ app.post('/api/v1/upload', photoMiddleware.array('photos', 100), async (req, res
     
 })
 
+// ================ Add New Advertisement =============
+app.post('/add-new-advertisement', async (req, res) => {
+    const name = req.body.propertyName;
+    const description = req.body.propertyDesc;
+    const address = req.body.propertyAddress;
+    const extracheck = req.body.extraCheck;
+    const maxPeople = req.body.stayNumber;
+    const images = req.body.uploadedImage;
+    const checkInDate = req.body.checkInDate;
+    const checkOutDate = req.body.checkOutDate;
+    const roomType = req.body.roomTypeSel;
+    const price = req.body.pricePerNight;
+    try {
+        const { token } = req.cookies;
+        console.log(req.body.extras)
+        const SECRET_KEY = process.env.JWT_SECRET;
+        console.log("Imageeee", images);
+        jwt.verify(token, SECRET_KEY, {}, async (err, user) => {
+            if (err) throw err;
+            const op = await Advertisement.create({ name, extracheck, owner: user.id, description, address, maxPeople, images, checkInDate, checkOutDate, roomType, price, phone: user.phone });
+            res.json(op)
+        })
+       
+       
+   } catch (error) {
+    console.log(error)
+   }
+   
+  
+  
+
+
+
+
+
+    
+})
 const port = process.env.PORT;
 
 app.listen(port, () => {

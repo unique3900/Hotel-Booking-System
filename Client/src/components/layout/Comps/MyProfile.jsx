@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../Context/UserContext'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import MyAdvertisement from './MyAdvertisement';
 
 const MyProfile = () => {
     const { user, setUser, loading } = useContext(UserContext);
@@ -40,13 +41,19 @@ const MyProfile = () => {
                 }
           </div>
           
-          <div className="w-full shadow-xl flex flex-col justify-center">
+          <div className="h-screen w-3/4 shadow-xl flex justify-center p-10">
         {
           
           subpage == 'my-profile' && (
             <h1>Hey</h1>
           )
-              }
+        }
+        
+        {
+          subpage == 'my-advertisements' && (
+            <MyAdvertisement/>
+          )
+        }
              
           </div>
     </div>

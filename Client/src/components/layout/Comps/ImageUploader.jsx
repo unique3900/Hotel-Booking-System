@@ -40,7 +40,7 @@ const ImageUploader = ({imageLink,imageLinkSetter,handleUrlUpload,addedImages,lo
                                 <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
                                     <input type="file" multiple accept="image/*" onChange={localImageAdder} className="hidden" />
                                     <AiOutlineCloudUpload />
-                                    Upload
+                                    Upload from Device
                                 </label>
                             </div>
       
