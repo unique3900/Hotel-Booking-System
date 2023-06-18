@@ -158,23 +158,41 @@ app.post('/add-new-advertisement', async (req, res) => {
         console.log("Imageeee", images);
         jwt.verify(token, SECRET_KEY, {}, async (err, user) => {
             if (err) throw err;
-            const op = await Advertisement.create({ name, extracheck, owner: user.id, description, address, maxPeople, images, checkInDate, checkOutDate, roomType, price, phone: user.phone });
+            const op = await Advertisement.create({ name, extracheck, owner: user.id, description, address, maxPeople, images, checkInDate, checkOutDate, roomType,images, price, phone: user.phone });
             res.json(op)
         })
        
+
+
+     
        
    } catch (error) {
     console.log(error)
-   }
-   
-  
-  
-
-
-
-
-
+    }
     
+    
+})
+
+// Return Advertisement
+
+app.post('/my-advertisements', async (req, res) => {
+    const { token } = req.cookies;
+    const SECRET_KEY = process.env.JWT_SECRET;
+    try {
+        jwt.verify(token, SECRET_KEY, {}, async (err, user) =>
+        {
+            if(err) console.log(err)
+            const fetchData = await Advertisement.find({ owner: user.id });
+            res.json({ success:true,message:"Advertisents Fetch Successfully",fetchData} );
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
+   
+   
+
+
 })
 const port = process.env.PORT;
 
