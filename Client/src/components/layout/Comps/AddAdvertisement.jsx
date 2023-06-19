@@ -3,13 +3,15 @@ import React, {
     useEffect,
     useState
 } from 'react'
-import Select from 'react-select';
+import  Select  from 'react-select';
 import {
+    colourOptions,
     roomType
 } from '../../../Data/data';
 import {
     UserContext
 } from '../../Context/UserContext';
+
 import {
     useNavigate, useParams
 } from 'react-router-dom';
@@ -36,6 +38,7 @@ const AddAdvertisement = () => {
     const [propertyDesc, setPropertyDesc] = useState('');
     const [roomNumber, setRoomNumbers] = useState('');
     const [checkInDate, setCheckInDate] = useState('');
+    const [city, setCity] = useState('');
     const [checkOutDate, setCheckOutDate] = useState('');
     const [roomTypeSel, setRoomTypeSel] = useState('Premium');
     const [stayNumber, setStayNumber] = useState('');
@@ -63,6 +66,7 @@ const AddAdvertisement = () => {
                 setUploadedImage(data.fetchData.images);
                 setCheckInDate(data.fetchData.checkInDate);
                 setCheckOutDate(data.fetchData.checkOutDate)
+                setCity(data.fetchData.city)
                 
                 console.log(data)
             }
@@ -120,7 +124,7 @@ const AddAdvertisement = () => {
         e.preventDefault();
         console.log([extraCheck]);
         console.log(uploadedImage)
-        const datas = { propertyName, propertyDesc, propertyAddress, checkInDate, checkOutDate, uploadedImage, roomTypeSel,extraCheck, pricePerNight, stayNumber, roomNumber };
+        const datas = { propertyName, propertyDesc, propertyAddress, checkInDate, checkOutDate, uploadedImage, roomTypeSel,extraCheck, pricePerNight, stayNumber, roomNumber,city };
         
         if (!params.id) {
             const { data } = await axios.post('/add-new-advertisement',datas)
@@ -161,9 +165,21 @@ const AddAdvertisement = () => {
                                 id="" />
 
                         </div>
-
                         <div className="flex flex-col justify-start gap-2 w-full">
-                            <label htmlFor="" className="text-lg text-gray-500">Property Address</label>
+                            <label htmlFor="" className="text-lg text-gray-500">City</label>
+                            <Select className='text-black w-full'
+                        defaultValue={colourOptions[0]}
+                                options={colourOptions}
+                                onChange={(e) => {
+                                    setCity(e.value)
+                                    
+
+                                }}
+                        />
+                            
+                        </div>
+                        <div className="flex flex-col justify-start gap-2 w-full">
+                            <label htmlFor="" className="text-lg text-gray-500">Full Address</label>
                             <input type="text"
                                 value={propertyAddress}
                                 onChange={

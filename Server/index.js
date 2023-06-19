@@ -142,6 +142,7 @@ app.post('/api/v1/upload', photoMiddleware.array('photos', 100), async (req, res
 // ================ Add New Advertisement =============
 app.post('/add-new-advertisement', async (req, res) => {
     const name = req.body.propertyName;
+    const city = req.body.city;
     const description = req.body.propertyDesc;
     const address = req.body.propertyAddress;
     const extracheck = req.body.extraCheck;
@@ -159,7 +160,7 @@ app.post('/add-new-advertisement', async (req, res) => {
         console.log("Imageeee", images);
         jwt.verify(token, SECRET_KEY, {}, async (err, user) => {
             if (err) throw err;
-            const op = await Advertisement.create({ name, extracheck,roomNumber, owner: user.id, description, address, maxPeople, images, checkInDate, checkOutDate, roomType,images, price, phone: user.id });
+            const op = await Advertisement.create({ name,city, extracheck,roomNumber, owner: user.id, description, address, maxPeople, images, checkInDate, checkOutDate, roomType,images, price, phone: user.id });
             res.json(op)
         })
        
@@ -208,7 +209,8 @@ app.post('/my-advertisements', async (req, res) => {
 
 app.put('/api/v1/update-advertisement', async (req, res) => {
         const id = req.body.id;
-        const name = req.body.propertyName;
+    const name = req.body.propertyName;
+    const city = req.body.city;
         const description = req.body.propertyDesc;
         const address = req.body.propertyAddress;
         const extracheck = req.body.extraCheck;
@@ -228,7 +230,7 @@ app.put('/api/v1/update-advertisement', async (req, res) => {
                 if (err) throw err;
 
                 if (token.id == user.owner) {
-                    const fetchResponse = await Advertisement.findByIdAndUpdate(id, { name, description, address, extracheck, maxPeople, images, checkInDate, checkOutDate, roomType, roomNumber, price });
+                    const fetchResponse = await Advertisement.findByIdAndUpdate(id, { name, description, address, extracheck, maxPeople, images, checkInDate, checkOutDate, roomType, roomNumber, price,city });
                     res.json({ success: true });
                 }
             })

@@ -8,6 +8,7 @@ import AddAdvertisement from './components/layout/Comps/AddAdvertisement';
 import axios from 'axios';
 import MyProfile from './components/layout/Comps/MyProfile';
 import MyAdvertisement from './components/layout/Comps/MyAdvertisement';
+import Homepage from './components/layout/Comps/Homepage';
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -19,7 +20,7 @@ const App = () => {
                 <Navbar />
                
                 <Routes>
-                    <Route path='/' element={<Hero/>}/>
+                    <Route path='/' element={<Homepage/>}/>
                     <Route path='/login' element={<Login/>} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/my-account/:subpage?' element={<MyProfile />} />

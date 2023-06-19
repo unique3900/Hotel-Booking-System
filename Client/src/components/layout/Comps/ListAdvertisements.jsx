@@ -51,7 +51,7 @@ const ListAdvertisements = () => {
                 <div className="">
                   <div className="flex flex-col gap-1">
                     <h3 className="text-xl font-bold">{item.name}</h3>
-                    <p className="text-gray-600 italic underline">Pokhara Nepal 4498</p>
+                    <p className="text-gray-600 italic underline">{item.address }</p>
                   </div>
                   
                   
