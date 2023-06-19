@@ -9,11 +9,12 @@ const MyProfile = () => {
     const navigate = useNavigate();
     const { subpage } = useParams(); 
 
-    useEffect(() => {
-        if (!user && !loading) {
-               navigate('/login')
-            }
-    }, [user])
+    // useEffect(() => {
+    //   if (!user || !loading) {
+    //       alert("Login to access this page")
+    //            navigate('/login')
+    //         }
+    // }, [user])
     
 
     

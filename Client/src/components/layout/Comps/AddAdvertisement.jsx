@@ -11,40 +11,69 @@ import {
     UserContext
 } from '../../Context/UserContext';
 import {
-    useNavigate
+    useNavigate, useParams
 } from 'react-router-dom';
 import axios from 'axios';
 
 
 import AdExtraFeature from './AdExtraFeature';
 import ImageUploader from './ImageUploader';
+
+
 const AddAdvertisement = () => {
+    const params = useParams();
     const {
         user,
         loading,setLoading
     } = useContext(UserContext);
     const navigate = useNavigate();
+    
     const [extraCheck, setExtraCheck] = useState([]);
     const [propertyName, setPropertyName] = useState('');
     const [uploadedImage, setUploadedImage] = useState([]);
     const [propertyAddress, setPropertyAddress] = useState('');
     
     const [propertyDesc, setPropertyDesc] = useState('');
-    const [roomNumbers, setRoomNumbers] = useState('');
+    const [roomNumber, setRoomNumbers] = useState('');
     const [checkInDate, setCheckInDate] = useState('');
     const [checkOutDate, setCheckOutDate] = useState('');
-    const [roomTypeSel, setRoomTypeSel] = useState('');
+    const [roomTypeSel, setRoomTypeSel] = useState('Premium');
     const [stayNumber, setStayNumber] = useState('');
     const [imageURL, setImageUrl] = useState('');
     const [pricePerNight, setPricePerNight] = useState('');
     const [image, setStayImage] = useState('');
 
     useEffect(() => {
-        if (!user && !loading ) {
-            alert("Please Login to access this page")
-            navigate('/login')
+        if (!params.id) {
+            return;
+            
         }
-    }, [user])
+        
+        const fetchData = async () => {
+            const { data } = await axios.get(`/api/v1/Advertisement/${params.id}`);
+            if (data.success) {
+                setPropertyName(data.fetchData.name);
+                setPropertyDesc(data.fetchData.description);
+                setPropertyAddress(data.fetchData.address);
+                setRoomNumbers(data.fetchData.roomNumber);
+                setRoomTypeSel(data.fetchData.roomType);
+                setStayNumber(data.fetchData.maxPeople);
+                setPricePerNight(data.fetchData.price);
+                setExtraCheck(data.fetchData.extracheck);
+                setUploadedImage(data.fetchData.images);
+                setCheckInDate(data.fetchData.checkInDate);
+                setCheckOutDate(data.fetchData.checkOutDate)
+                
+                console.log(data)
+            }
+            else {
+                console.log("error in fetch Data")
+            }
+        }
+        fetchData();
+
+        
+    }, [])
 
 
     const addPhotoViaUrl = async (e) => {
@@ -85,24 +114,26 @@ const AddAdvertisement = () => {
             })
        })
        
-        
-        
-        
-
     }
-
-
-
 
     const handleSubmit =async (e) => {
         e.preventDefault();
         console.log([extraCheck]);
         console.log(uploadedImage)
-        const datas = { propertyName, propertyDesc, propertyAddress, checkInDate, checkOutDate, uploadedImage, roomTypeSel,extraCheck, pricePerNight, stayNumber, roomNumbers };
+        const datas = { propertyName, propertyDesc, propertyAddress, checkInDate, checkOutDate, uploadedImage, roomTypeSel,extraCheck, pricePerNight, stayNumber, roomNumber };
         
-        const { data } = await axios.post('/add-new-advertisement',datas)
-        console.log(data)
+        if (!params.id) {
+            const { data } = await axios.post('/add-new-advertisement',datas)
+            console.log(data)
+        }
+        else {
+            const {data}=await axios.put(`/api/v1/update-advertisement`,{id:params.id,...datas})
+            console.log(data)
+        }
+
     }
+
+
     return (
         <div className='h-screen flex items-center place-items-center justify-center bg-teal-200 bg-opacity-60 px-10'>
             <div className="flex mt-5  h-full overflow-x-auto no-scrollbar w-full lg:flex-row justify-center lg:justify-between bg-white shadow-lg py-5   p-2">
@@ -113,7 +144,7 @@ const AddAdvertisement = () => {
                 {/* Right */}
 
                 <div className="flex flex-col w-full items-center gap-5 py-10 px-5">
-                    <h3 className="text-4xl font-bold">Add Advertisement</h3>
+                    <h3 className="text-4xl font-bold">{params.id?"Update":"Add"} Advertisement</h3>
                     <form className="w-full flex flex-col gap-2" action="" method="post"
                         onSubmit={handleSubmit}>
                         <div className="flex flex-col justify-start gap-2 w-full">
@@ -164,7 +195,7 @@ const AddAdvertisement = () => {
                         <div className="flex flex-col justify-start gap-2 w-full">
                             <label htmlFor="" className="text-lg text-gray-500">Number of Rooms</label>
                             <input type="number"
-                                value={roomNumbers}
+                                value={roomNumber}
                                 onChange={
                                     (e) => {
                                         setRoomNumbers(e.target.value)
@@ -178,7 +209,7 @@ const AddAdvertisement = () => {
                         </div>
                         <div className="flex flex-col justify-start gap-2 w-full ">
                             <label htmlFor="" className="text-lg text-gray-500">Type of Room</label>
-                            <select onChange={
+                            <select value={roomTypeSel} onChange={
                                 (e) => {
                                     setRoomTypeSel(e.target.value)
                                 }
@@ -188,6 +219,7 @@ const AddAdvertisement = () => {
                                     roomType.map((item, index) => {
                                         return (
                                             <option key={index}
+                                               
                                                 value={
                                                     `${item.label
                                                     }`

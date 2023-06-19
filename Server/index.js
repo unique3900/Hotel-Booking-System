@@ -150,6 +150,7 @@ app.post('/add-new-advertisement', async (req, res) => {
     const checkInDate = req.body.checkInDate;
     const checkOutDate = req.body.checkOutDate;
     const roomType = req.body.roomTypeSel;
+    const roomNumber = req.body.roomNumber;
     const price = req.body.pricePerNight;
     try {
         const { token } = req.cookies;
@@ -158,7 +159,7 @@ app.post('/add-new-advertisement', async (req, res) => {
         console.log("Imageeee", images);
         jwt.verify(token, SECRET_KEY, {}, async (err, user) => {
             if (err) throw err;
-            const op = await Advertisement.create({ name, extracheck, owner: user.id, description, address, maxPeople, images, checkInDate, checkOutDate, roomType,images, price, phone: user.phone });
+            const op = await Advertisement.create({ name, extracheck,roomNumber, owner: user.id, description, address, maxPeople, images, checkInDate, checkOutDate, roomType,images, price, phone: user.id });
             res.json(op)
         })
        
@@ -188,11 +189,64 @@ app.post('/my-advertisements', async (req, res) => {
     } catch (error) {
         console.log(error)
     }
-
-   
-   
+})
 
 
+    //    ===============Get Ad by Id ==============
+    app.get('/api/v1/Advertisement/:id', async (req, res) => {
+        const id = req.params.id;
+        try {
+            const fetchData = await Advertisement.findById({ _id: id });
+            res.json({success:true,fetchData})
+        } catch (error) {
+            console.log(error)
+        }
+    })
+
+
+
+
+app.put('/api/v1/update-advertisement', async (req, res) => {
+        const id = req.body.id;
+        const name = req.body.propertyName;
+        const description = req.body.propertyDesc;
+        const address = req.body.propertyAddress;
+        const extracheck = req.body.extraCheck;
+        const maxPeople = req.body.stayNumber;
+        const images = req.body.uploadedImage;
+        const checkInDate = req.body.checkInDate;
+        const checkOutDate = req.body.checkOutDate;
+        const roomType = req.body.roomTypeSel;
+        const roomNumber = req.body.roomNumber;
+        const price = req.body.pricePerNight;
+        try {
+            const { token } = req.cookies;
+            console.log(req.body.extras)
+            const SECRET_KEY = process.env.JWT_SECRET;
+         
+            jwt.verify(token, SECRET_KEY, {}, async (err, user) => {
+                if (err) throw err;
+
+                if (token.id == user.owner) {
+                    const fetchResponse = await Advertisement.findByIdAndUpdate(id, { name, description, address, extracheck, maxPeople, images, checkInDate, checkOutDate, roomType, roomNumber, price });
+                    res.json({ success: true });
+                }
+            })
+           
+       } catch (error) {
+        console.log(error)
+        }  
+})
+    
+// ======== Delete Advertisement=================
+app.delete('/api/v1/delete/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const deleteHandle = await Advertisement.findByIdAndDelete(id);
+        res.json({success:true})
+    } catch (error) {
+        console.log(error)
+    }
 })
 const port = process.env.PORT;
 

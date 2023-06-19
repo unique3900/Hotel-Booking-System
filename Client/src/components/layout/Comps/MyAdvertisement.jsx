@@ -11,7 +11,7 @@ const MyAdvertisement = () => {
       </div>
       <div className="w-fit">
         <button className="bg-green-700 px-5 py-2 rounded-full w-fit text-white" onClick={() => {
-          navigate('/add-advertisement')
+          navigate('add-advertisement')
         }}>Add New Advertisement</button>
       </div>
 
