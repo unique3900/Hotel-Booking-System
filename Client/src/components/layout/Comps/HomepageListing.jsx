@@ -1,6 +1,18 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const HomepageListing = () => {
+    const [advertisement, setAdvertisement] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async() => {
+            const { data } = await axios.get('/api/v1/advertisements');
+            setAdvertisement(data.fetchdata);
+            console.log(data)
+        }
+        fetchData();
+    }, [])
+    
     return (
         <div className='w-full h-screen flex flex-col p-10 gap-5'>
             <div className="">
@@ -9,32 +21,38 @@ const HomepageListing = () => {
             </div>
             <div className="flex flex-col gap-4 lg:flex-row justify-evenly flex-wrap">
 
-            
-                <div className= "relative bg-white shadow-lg flex flex-col gap-2 p-5 place-items-center w-1/4">
-                    <div className="w-full">
-                        <img src="https://cdn.ceoworld.biz/wp-content/uploads/2021/05/Soneva-Fushi.jpg" className=' object-cover w-full h-72' alt="" />
+                {
+                    advertisement.map((item) => {
+                        return (
+                            <div key={item._id} className= "relative bg-white shadow-lg flex flex-col gap-5 p-5 place-items-center h-auto lg:w-1/4">
+                            <div className="w-full">
+                                <img src="https://cdn.ceoworld.biz/wp-content/uploads/2021/05/Soneva-Fushi.jpg" className=' object-cover w-full h-72' alt="" />
+                                
+                            </div>
+                                <div className="absolute  left-2 top-1 shadow-2xl  bg-red-500 px-4 py-2 rounded-full text-white">Rs { item.price}</div>
                         
-                    </div>
-                    <div className="absolute  left-2 top-1 shadow-2xl  bg-red-500 px-4 py-2 rounded-full text-white">Rs 5000</div>
-                
-                    <div className="">
-                        <h4 className="text-2xl font-bold ">Maldives Beach Resort 5 star standard</h4>
-                    </div>
-                    <div className="flex flex-row justify-between gap-8">
-                        <p className="">Premium Room</p>
-                        <p className="">Maldives beach 04</p>
-                    </div>
-                    <div className="">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, provident necessitatibus commodi non accusamus id, odio, eveniet sunt deleniti libero facilis omnis nobis eius nulla accusantium error ipsam cupiditate nemo!
-                    </div>
-                    <div className="flex flex-row justify-between gap-10">
-                        <button className="bg-[#00388D]  px-3 py-2 text-white cursor-pointer">View More</button>
-                        <button className="bg-[#1b6714]  px-3 py-2 text-white cursor-pointer">Book This</button>
-                    </div>
-                    
-
-
-                </div>
+                            <div className="max-h-32">
+                                    <h4 className="text-2xl font-bold ">{ item.name}</h4>
+                            </div>
+                            <div className="flex flex-row justify-between gap-8">
+                                    <p className="">{item.roomType }</p>
+                                    <p className="">{ item.city}</p>
+                            </div>
+                            <div className="">
+                                { item.description.slice(0,160) + '.....'}
+                            </div>
+                            <div className="flex flex-row justify-between gap-10">
+                                <button className="bg-[#00388D]  px-3 py-2 text-white cursor-pointer">View More</button>
+                                <button className="bg-[#1b6714]  px-3 py-2 text-white cursor-pointer">Book This</button>
+                            </div>
+                            
+        
+        
+                        </div>
+                        )
+                    })
+            }
+          
             
         
        

@@ -175,7 +175,17 @@ app.post('/add-new-advertisement', async (req, res) => {
     
 })
 
-// Return Advertisement
+
+app.get('/api/v1/advertisements', async (req, res) => {
+    try {
+        const fetchdata = await Advertisement.find({});
+        res.json({success:true,message:"Ads fetched Successfully",fetchdata});
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+// Return Advertisement of a user
 
 app.post('/my-advertisements', async (req, res) => {
     const { token } = req.cookies;
