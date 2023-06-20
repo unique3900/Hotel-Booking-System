@@ -7,6 +7,7 @@ export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
     const [user, setUser] = useState(null);
+    const [wishList, setWishlist] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
             if (!user) {
@@ -16,13 +17,17 @@ export function UserContextProvider({ children }) {
                     setLoading(false)
                 });
                 
-            }
+        }
+        let existingItems = localStorage.getItem('wishlists');
+        if (existingItems) {
+            setWishlist(JSON.parse(existingItems ))
+        }
           
         
 
        
     }, [])
-    return (<UserContext.Provider value={{user,setUser,loading}}>
+    return (<UserContext.Provider value={{user,setUser,loading,setWishlist,wishList}}>
         {children}
     </UserContext.Provider>)
 }

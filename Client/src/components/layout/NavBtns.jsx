@@ -1,10 +1,14 @@
 import React, {
+    useContext,
     useEffect,
     useState
 } from 'react'
 import { Link } from 'react-router-dom';
+import { UserContext } from '../Context/UserContext';
+import { AiTwotoneStar } from 'react-icons/ai';
 
 const NavBtns = (props) => {
+    const { wishList,setWishlist } = useContext(UserContext);
     const btnItems = [
         {
             name: "Add Advertisement",
@@ -59,13 +63,18 @@ const NavBtns = (props) => {
                         <Link to={'/terms'} className="py-2">Terms and Condition</Link>
                         <div className="absolute -bottom-[1.8rem] group-hover:flex hidden h-1 w-full bg-red-600 "></div>
                     </li>
+                    <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
+                        <Link to={'/wishlist'} className="relative py-2"><AiTwotoneStar className='text-yellow-500 w-16 h-12'/></Link>
+                        <p className="absolute bg-red-500 text-white rounded-full top-1 right-2 px-1.5 z-10 ">{wishList.length}</p>
+                        <div className="absolute -bottom-[1.8rem] group-hover:flex hidden h-1 w-full bg-red-600 "></div>
+                    </li>
                 </ul>
             </div>
 
             {
             stat == true && (
-                <div className="absolute z-50 top-28 left-4 flex w-fit bg-white  px-5 h-fit lg:hidden">
-                    <ul className={`flex flex-col text-black items-baseline text-lg font-semibold `}>
+                <div className="absolute z-50 top-28 left-4 flex w-fit bg-white  px-5 h-auto py-10 lg:hidden">
+                    <ul className={`flex flex-col text-black items-baseline text-lg font-semibold gap-4 `}>
 
                     <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
                         <Link  to={'/add-advertisement'}className="py-2">Add Advertisement</Link>
@@ -84,7 +93,13 @@ const NavBtns = (props) => {
                         
                     </li>
                     <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
-                        <Link to={'/terms'} className="py-2">Terms and Condition</Link>
+                        <Link to={'/wishlist'} className="py-2">Terms and Condition</Link>
+                        
+                            </li>
+                            <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
+
+                                 <Link to={'/wishlist'} className="relative py-2 bg-yellow-400 px-3 text-white">Wishlists</Link>
+                
                         
                     </li>
                     </ul>
