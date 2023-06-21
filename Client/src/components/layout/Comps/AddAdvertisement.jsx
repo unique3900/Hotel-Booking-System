@@ -34,7 +34,6 @@ const AddAdvertisement = () => {
     const [propertyName, setPropertyName] = useState('');
     const [uploadedImage, setUploadedImage] = useState([]);
     const [propertyAddress, setPropertyAddress] = useState('');
-    
     const [propertyDesc, setPropertyDesc] = useState('');
     const [roomNumber, setRoomNumbers] = useState('');
     const [checkInDate, setCheckInDate] = useState('');

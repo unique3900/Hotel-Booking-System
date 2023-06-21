@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { AiOutlineStar } from 'react-icons/ai';
 import { UserContext } from '../../Context/UserContext';
+import { Link } from 'react-router-dom';
 const HomepageListing = () => {
     const [advertisement, setAdvertisement] = useState([]);
     const { wishList,setWishlist } = useContext(UserContext);
@@ -27,7 +28,7 @@ const HomepageListing = () => {
                         return (
                             <div key={item._id} className= "relative bg-white shadow-lg flex flex-col gap-5 p-5 place-items-center h-auto lg:w-1/4">
                             <div className="w-full">
-                                <img src="https://cdn.ceoworld.biz/wp-content/uploads/2021/05/Soneva-Fushi.jpg" className=' object-cover w-full h-72' alt="" />
+                                <img src={`http://localhost:8080/uploads/${item.images[0]}`} className=' object-cover w-full h-72' alt="" />
                                 
                             </div>
                                 <div className="absolute  left-2 top-1 shadow-2xl  bg-red-500 px-4 py-2 rounded-full text-white">Rs {item.price}</div>
@@ -48,8 +49,9 @@ const HomepageListing = () => {
                                 { item.description.slice(0,160) + '.....'}
                             </div>
                             <div className="flex flex-row justify-between gap-10">
-                                <button className="bg-[#00388D]  px-3 py-2 text-white cursor-pointer">View More</button>
-                                <button className="bg-[#1b6714]  px-3 py-2 text-white cursor-pointer">Book This</button>
+                                <Link to={`/advertisement/${item._id}`} className="bg-[#00388D]  px-3 py-2 text-white cursor-pointer">View More</Link>
+                                
+    
                             </div>
                             
         

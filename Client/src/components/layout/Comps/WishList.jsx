@@ -7,6 +7,7 @@ import {
 import {
     productData
 } from '../../../Data/data';
+import { Link } from 'react-router-dom';
 
 const WishList = () => {
     const {
@@ -71,7 +72,7 @@ const WishList = () => {
                                     <div className="flex flex-row justify-evenly items-center">
                                         <p className="">{item.roomType}</p>
                                         <p className="">Npr{item.price}</p>
-                                        <button className="bg-[#1b6714]  px-3 py-2 text-white cursor-pointer">Book This</button>
+                                        <Link to={`/advertisement/${item._id}`} className="bg-[#1b6714]  px-3 py-2 text-white cursor-pointer">Book This</Link>
                                         <button onClick={() => {
                                             handleRemoveWishlist(item._id)
                                         }} className="bg-red-600  px-3 py-2 text-white cursor-pointer">Remove</button>
