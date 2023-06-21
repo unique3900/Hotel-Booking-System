@@ -36,7 +36,7 @@ const Navbar = () => {
             {/*  Center */}
 
             <div className="-my-3 whitespace-nowrap">
-                <Link to='/'><img src={'./img/BOOK.png'}
+                <Link to='/'><img src={'/img/BOOK.png'}
                     className=' w-32'
                     alt="Logo"/></Link>
             </div>

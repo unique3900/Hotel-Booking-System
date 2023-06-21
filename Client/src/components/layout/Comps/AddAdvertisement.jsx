@@ -284,7 +284,7 @@ const AddAdvertisement = () => {
 
                         </div>
                         <div className="flex flex-col justify-start  w-full gap-2">
-                            <ImageUploader imageLink={imageURL} imageLinkSetter={setImageUrl} handleUrlUpload={addPhotoViaUrl} addedImages={uploadedImage } localImageAdder={uploadLocalImage}  />
+                            <ImageUploader imageLink={imageURL} imageLinkSetter={setImageUrl} handleUrlUpload={addPhotoViaUrl} addedImages={uploadedImage } localImageAdder={uploadLocalImage} onChange={setUploadedImage} />
 
 
                         </div>

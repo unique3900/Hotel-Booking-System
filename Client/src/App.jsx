@@ -28,7 +28,8 @@ const App = () => {
                     <Route path='/my-account/my-advertisements/add-advertisement' element={<AddAdvertisement/>} />
                     <Route path='/my-account/my-advertisements/advertisement/:id' element={<AddAdvertisement/>} />
                     <Route path='/add-advertisement' element={<AddAdvertisement/>} />
-                    <Route path='/wishlist' element={<WishList/>} />
+                    <Route path='/wishlist' element={<WishList />} />
+                    <Route path='/advertisement/:id' element={<h1>Hey</h1>} />
                 </Routes>
             </div>
         </div>
