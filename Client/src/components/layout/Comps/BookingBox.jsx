@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { differenceInCalendarDays } from 'date-fns';
-const BookingBox = ({price,maxStay}) => {
+import axios from 'axios';
+const BookingBox = ({price,maxStay,place}) => {
     const [userCheckinDate, setUserCheckinDate] = useState('');
     const [userCheckOutDate, setUserCheckoutDate] = useState('');
     const [curDate, setCurDate] = useState();
@@ -11,7 +12,7 @@ const BookingBox = ({price,maxStay}) => {
         numberofNights = differenceInCalendarDays(new Date(userCheckOutDate), new Date(userCheckinDate));
     }
 
-    const handleBookSubmit =  () => {
+    const handleBookSubmit =  async() => {
         if (!userStayNumber || !userCheckinDate || !userCheckOutDate) {
             alert("Please Fill Every Detail")
         }
@@ -22,7 +23,8 @@ const BookingBox = ({price,maxStay}) => {
             alert(`Maximun ${maxStay} people allowed`)
         }
         else {
-            alert("Booked")
+            const { data } = await axios.post('/api/v1/new-booking', { place, stayNumber: userStayNumber, price: numberofNights * price, checkInDate: userCheckinDate, checkOutDate: userCheckOutDate });
+            console.log(data)
         }
     }
   return (

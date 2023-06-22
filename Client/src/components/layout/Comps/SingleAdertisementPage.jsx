@@ -146,7 +146,7 @@ const SingleAdertisementPage = () => {
 
                           
                           
-                          <BookingBox price={pricePerNight } maxStay={stayNumber} />
+                          <BookingBox price={pricePerNight} maxStay={stayNumber} place={params.id } />
             </div> 
               )
         }

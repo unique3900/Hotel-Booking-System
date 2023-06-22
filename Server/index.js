@@ -12,6 +12,7 @@ const imageDownloader = require('image-downloader');
 const fs = require('fs');
 const multer = require('multer');
 const Advertisement = require('./Model/Advertisement');
+const Bookings = require('./Model/Bookings');
 const app = express();
 
 app.use(express.json({limit : 52428800}));
@@ -255,11 +256,30 @@ app.delete('/api/v1/delete/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const deleteHandle = await Advertisement.findByIdAndDelete(id);
-        res.json({success:true})
+        res.json({ success: true })
     } catch (error) {
         console.log(error)
     }
+});
+
+// ==============New Booking=================
+app.post('/api/v1/new-booking', async (req, res) => {
+    const { place, price, checkInDate, checkOutDate,stayNumber} = req.body;
+    try {
+        const { token } = req.cookies;
+        const SECRET_KEY = process.env.JWT_SECRET;
+        jwt.verify(token, SECRET_KEY, {}, async (err, user) => {
+            if (err) res.json({ success: false, message: "Error in JWT validation" })
+           
+            const fetchData = await Bookings.create({ place,stayNumber, checkInDate, checkOutDate,name:user.id, phone:user.phone, price });
+            res.json({success:true,message:"Booking Made Successfully",fetchData})
+        })
+    } catch (error) {
+        
+    }
 })
+
+
 const port = process.env.PORT;
 
 app.listen(port, () => {
