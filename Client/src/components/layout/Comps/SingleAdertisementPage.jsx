@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import {IoMdCloseCircleOutline} from 'react-icons/io'
 import { roomType } from '../../../Data/data';
+import BookingBox from './BookingBox';
+import { it } from 'date-fns/locale';
 const SingleAdertisementPage = () => {
     const [imageViewer, setImageViewer] = useState(false);
     const [advertisement, setAdvertisement] = useState([]);
@@ -23,8 +25,14 @@ const SingleAdertisementPage = () => {
     const [pricePerNight, setPricePerNight] = useState('');
     const [image, setStayImage] = useState('');
 
+    const [userCheckinDate, setUserCheckinDate] = useState('');
+    const [userCheckOutDate, setUserCheckoutDate] = useState('');
+    const [curDate, setCurDate] = useState();
+    const [userStayNumber, setUserStayNumber] = useState(0);
+
     const params = useParams();
     useEffect(() => {
+        setCurDate(Date.now())
         const fetchData = async () => {
             const id = params.id;
             const { data } = await axios.get(`/api/v1/Advertisement/${id}`);
@@ -46,8 +54,13 @@ const SingleAdertisementPage = () => {
             }
            
         }
+        
         fetchData();
-    }, [])
+    }, []);
+
+
+
+    
   return (
     <div className='w-full h-screen flex flex-col items-center'>
           {/* Show Image if imageViewer on */}
@@ -71,12 +84,12 @@ const SingleAdertisementPage = () => {
                       </div>
                   </div>
               ) : (
-                <div className="flex overflow-scroll no-scrollbar flex-col h-screen  p-10 bg-white items-center justify-center gap-15">
+                <div className="flex overflow-auto no-scrollbar flex-col h-screen  p-10 bg-white items-center justify-center gap-15">
                     <div className="relative place-items-center grid justify-center items-center 
                     grid-cols-[4fr_3fr] 
                     lg:grid-cols-[2fr_1fr]  max-h-[500px] gap-2">
                         <div className="h-fit w-fit">
-                        <img src={`http://localhost:8080/uploads/${uploadedImage[0]}`} className='h-[400px]' alt="" />
+                        <img src={`http://localhost:8080/uploads/${uploadedImage[0]}`} className='h-[500px]' alt="" />
                         </div>
                         <div className="flex flex-col  gap-2 h-auto">
                             <img src={`http://localhost:8080/uploads/${uploadedImage[1]}`} className='h-[200px]' alt="" />
@@ -118,7 +131,7 @@ const SingleAdertisementPage = () => {
                               </div>
                               <div className="flex flex-col gap-2">
                                   <h2 className="text-lg font-bold">Price</h2>
-                                  <h3 className="font-bold text-red-600 text-xl">Npr 12000</h3>
+                                  <h3 className="font-bold text-red-600 text-xl">NPR {pricePerNight} per night</h3>
                               </div>
 
                               <div className="flex flex-col gap-2">
@@ -133,22 +146,7 @@ const SingleAdertisementPage = () => {
 
                           
                           
-                          <div className="w-full bg-teal-500 p-10 mt-5 shadow-sm flex flex-col gap-4">
-                              <div className="flex flex-col gap-2">
-                                  <div className="flex flex-col gap-2">
-                                      <label htmlFor="" className='text-white'>Check In:</label>
-                                  <input type="datetime-local" className='w-full px-3 py-2'  />
-                                  </div>
-
-                                  <div className="flex flex-col gap-2">
-                                      <label htmlFor="" className='text-white'>Check Out:</label>
-                                  <input type="datetime-local" className='w-full px-3 py-2'  />
-                                  </div>
-                                  
-                              </div>
-                            
-                              <button className="bg-[#00388D] w-full px-3 py-2 text-white">Book Now</button>
-                          </div>
+                          <BookingBox price={pricePerNight } maxStay={stayNumber} />
             </div> 
               )
         }

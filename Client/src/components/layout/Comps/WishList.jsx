@@ -50,7 +50,7 @@ const WishList = () => {
                                 }
                                 className="flex flex-col lg:flex-row items-center shadow-lg px-3 py-5 justify-between gap-5">
                                 <div className="w-full h-1/2 lg:w-3/4 lg:h-fit object-cover">
-                                    <img src={"https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bHV4dXJ5JTIwaG91c2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"} className='w-full h-fit' alt="" />
+                                    <img src={`http://localhost:8080/uploads/${item.images[0]}`} className='w-full h-fit' alt="" />
                                 </div>
                                 <div className="flex flex-col gap-4">
                                 <div className="">
