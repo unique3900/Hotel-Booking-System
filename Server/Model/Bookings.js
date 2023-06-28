@@ -28,7 +28,11 @@ const BookingSchema = new mongoose.Schema({
     stayNumber: {
         type: Number,
         required:true 
+    },
+    isSeller: {
+        type: Boolean,
+        default:false
     }
-})
+},{timestamps:true})
 
 module.exports = mongoose.model("Bookings", BookingSchema);
