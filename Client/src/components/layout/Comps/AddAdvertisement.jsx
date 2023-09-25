@@ -141,8 +141,9 @@ const AddAdvertisement = () => {
         <div className='h-screen flex items-center place-items-center justify-center bg-teal-200 bg-opacity-60 px-10'>
             <div className="flex mt-5  h-full overflow-x-auto no-scrollbar w-full lg:flex-row justify-center lg:justify-between bg-white shadow-lg py-5   p-2">
                 {/* left */}
-                <div className="hidden w-full lg:flex items-center ">
-                    <img src="https://cdn.pixabay.com/photo/2016/03/28/09/34/bedroom-1285156_1280.jpg" className='h-auto rounded-2xl shadow-lg w-full' alt="" />
+                <div className="hidden w-full lg:flex flex-col gap-3 text-2xl items-center ">
+                    {params.id && <h3 className='font-bold'>Property Thumbnail:</h3>}
+                    <img src={!params.id?"https://cdn.pixabay.com/photo/2016/03/28/09/34/bedroom-1285156_1280.jpg":`http://localhost:8080/uploads/${uploadedImage[0]}`}  className='h-1/2 object-cover rounded-2xl shadow-lg w-full' alt="" />
                 </div>
                 {/* Right */}
 

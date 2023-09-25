@@ -176,7 +176,7 @@ app.post('/add-new-advertisement', async (req, res) => {
     
 })
 
-
+// ================== Advertisements ===============
 app.get('/api/v1/advertisements', async (req, res) => {
     try {
         const fetchdata = await Advertisement.find({});
@@ -216,7 +216,7 @@ app.post('/my-advertisements', async (req, res) => {
     })
 
 
-
+// ======================== Update Advertisement =====================
 
 app.put('/api/v1/update-advertisement', async (req, res) => {
         const id = req.body.id;
@@ -252,6 +252,7 @@ app.put('/api/v1/update-advertisement', async (req, res) => {
 })
     
 // ======== Delete Advertisement=================
+
 app.delete('/api/v1/delete/:id', async (req, res) => {
     const id = req.params.id;
     try {
@@ -263,6 +264,7 @@ app.delete('/api/v1/delete/:id', async (req, res) => {
 });
 
 // ==============New Booking=================
+
 app.post('/api/v1/new-booking', async (req, res) => {
     const { place, price, checkInDate, checkOutDate,stayNumber} = req.body;
     try {
@@ -279,6 +281,26 @@ app.post('/api/v1/new-booking', async (req, res) => {
     }
 })
 
+
+// ================= Search Advertisement By Date and Address =========
+app.post('/api/v1/search', async (req, res) => {
+    try {
+        const { checkInDate, checkOutDate, address } = req.body;
+        const d1 = new Date(checkInDate);
+        const d2 = new Date(checkOutDate);
+        console.log(address)
+        if (d1 > d2) {
+           res.json({success:false,msg:"CheckIn Must Before CheckOut"})
+        }
+        else {
+            const fetchList = await Advertisement.find({ city : address});
+            res.json({fetchList})
+        }
+    } catch (error) {
+        res.json({msg:"Error in Search",error})
+    }
+   
+})
 
 const port = process.env.PORT;
 

@@ -42,9 +42,10 @@ const ListAdvertisements = () => {
       {
         advertData.map((item) => {
           return (
+            
             <div key={item._id} className="flex w-full shadow-lg flex-col lg:flex-row gap-3 justify-between items-center">
               <div className="relative w-72 h-48">
-                <img src={`https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bHV4dXJ5JTIwaG91c2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80`} alt="" className=' w-full' />
+                <img src={`http://localhost:8080/uploads/${item.images[0]}`} alt="" className=' w-72 h-44' />
                 <p className="bg-red-700 absolute right-3 top-2 px-2 rounded-full text-white">NPR {item.price } /-</p>
               </div>
               <div className="flex w-full flex-col items-center justify-center gap-3 py-3 px-2">

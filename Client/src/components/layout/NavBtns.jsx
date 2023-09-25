@@ -8,7 +8,8 @@ import { UserContext } from '../Context/UserContext';
 import { AiTwotoneStar } from 'react-icons/ai';
 
 const NavBtns = (props) => {
-    const { wishList,setWishlist } = useContext(UserContext);
+    const { wishList, setWishlist } = useContext(UserContext);
+    const { user,setUser } = useContext(UserContext);
     const btnItems = [
         {
             name: "Add Advertisement",
@@ -43,7 +44,10 @@ const NavBtns = (props) => {
 
                 <ul className={`flex flex-row justify-between md:gap-2 items-center space-x-10  text-orange-800 text-lg font-semibold `}>
                     
-                    <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
+                    {
+                        user && (
+                            <>
+                                                <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
                         <Link  to={'/add-advertisement'}className="py-2">Add Advertisement</Link>
                         <div className="absolute -bottom-[1.8rem] group-hover:flex hidden h-1 w-full bg-red-600 "></div>
                     </li>
@@ -51,6 +55,10 @@ const NavBtns = (props) => {
                         <Link to={'/bookings'} className="py-2">Bookings</Link>
                         <div className="absolute -bottom-[1.8rem] group-hover:flex hidden h-1 w-full bg-red-600 "></div>
                     </li>
+                            </>
+                        )
+                    }
+
                     <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
                         <Link to={'/contact'} className="py-2">Contact us</Link>
                         <div className="absolute -bottom-[1.8rem] group-hover:flex hidden h-1 w-full bg-red-600 "></div>
@@ -76,7 +84,10 @@ const NavBtns = (props) => {
                 <div className="absolute z-50 top-28 left-4 flex w-fit bg-white  px-5 h-auto py-10 lg:hidden">
                     <ul className={`flex flex-col text-black items-baseline text-lg font-semibold gap-4 `}>
 
-                    <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
+                            {
+                                user && (
+                                    <>
+                                           <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
                         <Link  to={'/add-advertisement'}className="py-2">Add Advertisement</Link>
                        
                     </li>
@@ -84,6 +95,10 @@ const NavBtns = (props) => {
                         <Link to={'/bookings'} className="py-2">Bookings</Link>
                         
                     </li>
+                                    </>
+                                )
+                            }
+                 
                     <li className="relative group lg:text-[18px] md:text-[14px] whitespace-nowrap">
                         <Link to={'/contact'} className="py-2">Contact us</Link>
                         
