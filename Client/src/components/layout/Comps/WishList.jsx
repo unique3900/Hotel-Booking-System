@@ -48,9 +48,9 @@ const WishList = () => {
                             <div key={
                                     index
                                 }
-                                className="flex flex-col lg:flex-row items-center shadow-lg px-3 py-5 justify-between gap-5">
+                                className="flex flex-col lg:flex-row items-center shadow-lg px-3 py-5 justify-between gap-5 w-[500px]">
                                 <div className="w-full h-1/2 lg:w-3/4 lg:h-fit object-cover">
-                                    <img src={`http://localhost:8080/uploads/${item.images[0]}`} className='w-full h-fit' alt="" />
+                                    <img src={`http://localhost:8080/uploads/${item.images[0]}`} className='w-44 h-44' alt="" />
                                 </div>
                                 <div className="flex flex-col gap-4">
                                 <div className="">
@@ -69,13 +69,16 @@ const WishList = () => {
                                     }</h3>
                                     </div>
                                     
-                                    <div className="flex flex-row justify-evenly items-center">
+                                    <div className="flex flex-row justify-around gap-2 items-center">
                                         <p className="">{item.roomType}</p>
                                         <p className="">Npr{item.price}</p>
-                                        <Link to={`/advertisement/${item._id}`} className="bg-[#1b6714]  px-3 py-2 text-white cursor-pointer">Book This</Link>
+                                        
+                                    </div>
+                                    <div className="flex flex-row justify-between gap-5">
+                                    <Link to={`/advertisement/${item._id}`} className="bg-[#1b6714] w-full  px-3 py-2 text-white cursor-pointer">Book </Link>
                                         <button onClick={() => {
                                             handleRemoveWishlist(item._id)
-                                        }} className="bg-red-600  px-3 py-2 text-white cursor-pointer">Remove</button>
+                                        }} className="bg-red-600 w-full  px-3 py-2 text-white cursor-pointer">Remove</button>
                                     </div>
                                 </div>
                                 

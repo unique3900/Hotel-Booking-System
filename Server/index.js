@@ -293,8 +293,19 @@ app.post('/api/v1/search', async (req, res) => {
            res.json({success:false,msg:"CheckIn Must Before CheckOut"})
         }
         else {
-            const fetchList = await Advertisement.find({ city : address});
-            res.json({fetchList})
+            const fetchList = await Advertisement.find({
+                city: address,
+                checkInDate: { "$gte": d1 },
+                checkOutDate:{"$lte":d2}
+            });
+            console.log(fetchList)
+            if (fetchList) {
+                res.json({fetchList})
+            }
+            else {
+                res.json({fetchList:[]})
+            }
+            
         }
     } catch (error) {
         res.json({msg:"Error in Search",error})

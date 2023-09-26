@@ -28,11 +28,11 @@ const AdvertisementSchema = new mongoose.Schema({
         required: true
     },
     checkInDate: {
-        type: String,
+        type: Date,
         required: true
     },
     checkOutDate: {
-        type: String,
+        type: Date,
         required: true
     },
     roomType: {

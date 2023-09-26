@@ -1,15 +1,17 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { AiOutlineStar } from 'react-icons/ai';
-import { UserContext } from '../../Context/UserContext';
+import { ProductContext, UserContext } from '../../Context/UserContext';
 import { Link } from 'react-router-dom';
 const HomepageListing = () => {
     const [advertisement, setAdvertisement] = useState([]);
-    const { wishList,setWishlist } = useContext(UserContext);
+    const { wishList, setWishlist } = useContext(UserContext);
+    const {fetchedProducts,setFetchedProducts } = useContext(ProductContext);
     useEffect(() => {
         const fetchData = async() => {
             const { data } = await axios.get('/api/v1/advertisements');
-            setAdvertisement(data.fetchdata);
+            // setAdvertisement(data.fetchdata);
+            setFetchedProducts(data.fetchdata)
             console.log(data)
         }
         fetchData();
@@ -19,12 +21,12 @@ const HomepageListing = () => {
         <div className='w-full h-screen flex flex-col p-10 gap-5'>
             <div className="">
                 <h3 className="text-4xl text-black font-bold text-center
-                                  ">Latest Destination</h3>
+                                  ">Listed Destination's</h3>
             </div>
-            <div className="flex flex-col gap-4 lg:flex-row justify-evenly flex-wrap">
+            <div className="flex flex-col gap-4 lg:flex-row justify-center flex-wrap">
 
                 {
-                    advertisement.map((item) => {
+                    fetchedProducts?.map((item) => {
                         return (
                             <div key={item._id} className= "relative bg-white shadow-lg flex flex-col gap-5 p-5 place-items-center h-auto lg:w-1/4">
                             <div className="w-full">
@@ -41,7 +43,7 @@ const HomepageListing = () => {
                             <div className="max-h-32">
                                     <h4 className="text-2xl font-bold ">{ item.name}</h4>
                             </div>
-                            <div className="flex flex-row justify-between gap-8">
+                            <div className="flex flex-row justify-between gap-3">
                                     <p className="">{item.roomType }</p>
                                     <p className="">{ item.city}</p>
                             </div>

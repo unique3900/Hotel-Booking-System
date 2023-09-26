@@ -9,6 +9,7 @@ import {
     colourOptions
 } from '../../../Data/data';
 import {
+    ProductContext,
     UserContext
 } from '../../Context/UserContext';
 import {
@@ -26,7 +27,7 @@ const Hero = () => {
     const [checkInDate, setCheckInDate] = useState();
     const [checkOutDate, setCheckOutDate] = useState();
     const [address, setAddress] = useState("Bhaktapur");
-
+    const {fetchedProducts,setFetchedProducts } = useContext(ProductContext);
 
     const navigate = useNavigate();
     const today = new Date().toISOString().split('T')[0];
@@ -34,7 +35,8 @@ const Hero = () => {
 
     const handleSearch = async() => {
         const { data } = await axios.post('/api/v1/search', { checkInDate, checkOutDate, address });
-        console.log(data)
+        setFetchedProducts(data?.fetchList)
+      
     }
     return (
         <section className="relative lg:h-[70vh] h-screen flex flex-col items-center justify-center text-center text-white py-0 px-3">

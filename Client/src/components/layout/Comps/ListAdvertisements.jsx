@@ -1,10 +1,13 @@
 import axios from 'axios';
-import React, { useEffect,useState } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import { productData } from '../../../Data/data';
 import { Link } from 'react-router-dom';
+import { ProductContext } from '../../Context/UserContext';
 
 const ListAdvertisements = () => {
   const [advertData, setadvertData] = useState([]);
+
+  const {fetchedProducts,setFetchedProducts } = useContext(ProductContext);
   useEffect(() => {
     fetchData();
   }, [])
@@ -15,6 +18,7 @@ const ListAdvertisements = () => {
       const { data } = await axios.post('/my-advertisements');
       if (data.success) {
         setadvertData(data.fetchData);
+        setFetchedProducts(data.fetchData)
         
       }
       else {
@@ -40,7 +44,7 @@ const ListAdvertisements = () => {
     <div className='h-full w-full overflow-y-scroll no-scrollbar gap-2  flex flex-col '>
       <h3 className="text-3xl font-bold text-center">Your Advertisements</h3>
       {
-        advertData.map((item) => {
+        fetchedProducts.map((item) => {
           return (
             
             <div key={item._id} className="flex w-full shadow-lg flex-col lg:flex-row gap-3 justify-between items-center">
