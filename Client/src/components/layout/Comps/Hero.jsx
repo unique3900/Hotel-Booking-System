@@ -90,7 +90,7 @@ const Hero = () => {
                           setAddress(e.target.value)
                 }} id="countries" class="  text-sm rounded-lg text-black focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option  disabled>Choose a city</option>
-                    <option selected value="Bhaktapur">Bhaktapue</option>
+                    <option selected value="Bhaktapur">Bhaktapur</option>
                     <option value="Kathmandu">Kathmandu</option>
                     <option value="Chitwan">Chitwan</option>
                     <option value="Pokhara">Pokhara</option>

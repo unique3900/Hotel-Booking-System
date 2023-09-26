@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom';
 import {IoMdCloseCircleOutline} from 'react-icons/io'
 import { roomType } from '../../../Data/data';
 import BookingBox from './BookingBox';
-import { it } from 'date-fns/locale';
+import { id, it } from 'date-fns/locale';
 const SingleAdertisementPage = () => {
     const [imageViewer, setImageViewer] = useState(false);
     const [advertisement, setAdvertisement] = useState([]);
 
+    const [productId, setProductId] = useState();
 
     const [extraCheck, setExtraCheck] = useState([]);
     const [propertyName, setPropertyName] = useState('');
@@ -35,8 +36,10 @@ const SingleAdertisementPage = () => {
         setCurDate(Date.now())
         const fetchData = async () => {
             const id = params.id;
+            setProductId(id)
             const { data } = await axios.get(`/api/v1/Advertisement/${id}`);
         
+            
             if (data.success) {
                 setAdvertisement(data.fetchData);
                 setPropertyName(data.fetchData.name);
@@ -146,7 +149,7 @@ const SingleAdertisementPage = () => {
 
                           
                           
-                          <BookingBox price={pricePerNight} maxStay={stayNumber} place={params.id } />
+                          <BookingBox productId={productId} price={pricePerNight} maxStay={stayNumber} place={params.id} roomAvailable={roomNumber} checkInDate={checkInDate } checkOutDate={checkOutDate} />
             </div> 
               )
         }
