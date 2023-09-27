@@ -17,6 +17,7 @@ const BookingSchema = new mongoose.Schema({
         type: mongoose.ObjectId,
         ref: 'User'
     },
+
     phone:{
         type: String,
         required:true
@@ -29,9 +30,9 @@ const BookingSchema = new mongoose.Schema({
         type: Number,
         required:true 
     },
-    isSeller: {
-        type: Boolean,
-        default:false
+    owner: {
+        type: mongoose.ObjectId,
+        ref: 'User'
     }
 },{timestamps:true})
 

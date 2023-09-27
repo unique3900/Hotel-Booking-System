@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { differenceInCalendarDays } from 'date-fns';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-const BookingBox = ({productId,price,maxStay,place,roomAvailable,checkInDate,checkOutDate}) => {
+import { UserContext } from '../../Context/UserContext';
+const BookingBox = ({sellerId, productId, price, maxStay, place, roomAvailable, checkInDate, checkOutDate }) => {
+    const { user, setUser, loading } = useContext(UserContext);
     const [userCheckinDate, setUserCheckinDate] = useState('');
     const [userCheckOutDate, setUserCheckoutDate] = useState('');
     const [rooms, setRooms] = useState(0);
@@ -23,8 +25,11 @@ const BookingBox = ({productId,price,maxStay,place,roomAvailable,checkInDate,che
         numberofNights = differenceInCalendarDays(new Date(userCheckOutDate), new Date(userCheckinDate));
     }
 
-    const handleBookSubmit =  async() => {
-        if (!userStayNumber || !userCheckinDate || !userCheckOutDate || !rooms) {
+    const handleBookSubmit = async () => {
+        if (user._id==sellerId) {
+            alert("You Cannot Book Your Own Property")
+        }
+        else if (!userStayNumber || !userCheckinDate || !userCheckOutDate || !rooms) {
             alert("Please Fill Every Detail")
         }
         else if (roomAvailable < rooms) {
@@ -45,7 +50,7 @@ const BookingBox = ({productId,price,maxStay,place,roomAvailable,checkInDate,che
             alert("Check the availability of Room")
         }
         else {
-            const { data } = await axios.post('/api/v1/new-booking', {productId, place, stayNumber: userStayNumber, price: numberofNights * price, checkInDate: userCheckinDate, checkOutDate: userCheckOutDate,rooms });
+            const { data } = await axios.post('/api/v1/new-booking', {productId, place, stayNumber: userStayNumber, price: numberofNights * price, checkInDate: userCheckinDate, checkOutDate: userCheckOutDate,rooms,owner:sellerId });
             console.log(data)
         }
     }
@@ -84,7 +89,7 @@ const BookingBox = ({productId,price,maxStay,place,roomAvailable,checkInDate,che
     
   
           <button  onClick={handleBookSubmit} className={roomAvailable>0? "bg-[#00388D] w-full px-3 py-2 text-white":"bg-[#a4312f] w-full px-3 py-2 text-white" }disabled={roomAvailable<=0?true:false}>{roomAvailable<=0? "Sorry Booking Full":"Book"}   {roomAvailable>0 && numberofNights>0 && (
-              <span className="">for NPR {numberofNights *price} /-</span>
+              <span className="">for NPR {numberofNights *price * rooms} /-</span>
           )} </button>
 </div>
   )

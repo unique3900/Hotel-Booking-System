@@ -9,6 +9,7 @@ const SingleAdertisementPage = () => {
     const [imageViewer, setImageViewer] = useState(false);
     const [advertisement, setAdvertisement] = useState([]);
 
+    const [sellerId, setSellerId] = useState();
     const [productId, setProductId] = useState();
 
     const [extraCheck, setExtraCheck] = useState([]);
@@ -42,6 +43,7 @@ const SingleAdertisementPage = () => {
             
             if (data.success) {
                 setAdvertisement(data.fetchData);
+                setSellerId(data.fetchData.owner);
                 setPropertyName(data.fetchData.name);
                 setPropertyDesc(data.fetchData.description);
                 setPropertyAddress(data.fetchData.address);
@@ -69,9 +71,9 @@ const SingleAdertisementPage = () => {
           {/* Show Image if imageViewer on */}
           {
               imageViewer ? (
-                  <div className="relative h-screen z-10 flex flex-col items-center ">
+                  <div className="relative h-screen z-10 flex flex-col items-center p-10 ">
                       <div className="cursor-pointer  absolute top-1 right-20">
-                      <IoMdCloseCircleOutline className='fixed w-16 h-16' onClick={() => {
+                      <IoMdCloseCircleOutline className='text-purple-600 fixed w-16 h-16' onClick={() => {
                           setImageViewer(!imageViewer)
                       }}/>
                       </div>
@@ -99,13 +101,11 @@ const SingleAdertisementPage = () => {
                             <img src={`http://localhost:8080/uploads/${uploadedImage[2]}`} className='h-[200px]' alt="" />
                         </div>
                 
-                                  {
-                                      uploadedImage.length > 2 ? (
-                                        <button className="absolute bg-black px-3 py-2 cursor-pointer text-white bottom-2 right-2" onClick={()=>{
+                                  
+                                        <button className="absolute bg-purple-600 px-3 py-2 cursor-pointer text-white -bottom-5 -right-5" onClick={()=>{
                                             setImageViewer(!imageViewer)
-                                          }}>Image Viewer" </button>
-                                      ):""
-                                  }
+                                          }}>Image Viewer </button>
+                                      
         
                     </div>
                
@@ -149,7 +149,7 @@ const SingleAdertisementPage = () => {
 
                           
                           
-                          <BookingBox productId={productId} price={pricePerNight} maxStay={stayNumber} place={params.id} roomAvailable={roomNumber} checkInDate={checkInDate } checkOutDate={checkOutDate} />
+                          <BookingBox sellerId={sellerId} productId={productId} price={pricePerNight} maxStay={stayNumber} place={params.id} roomAvailable={roomNumber} checkInDate={checkInDate } checkOutDate={checkOutDate} />
             </div> 
               )
         }

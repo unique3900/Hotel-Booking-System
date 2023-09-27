@@ -3,6 +3,7 @@ import { UserContext } from '../../Context/UserContext';
 import axios from 'axios';
 import { AiFillEye } from 'react-icons/ai';
 import { setDate } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 
 
@@ -42,7 +43,7 @@ const UserBookings = () => {
                     <div className={new Date().getTime() < new Date(item.checkOutDate).getTime()?"relative w-full bg-black overflow-x-auto text-white flex justify-between gap-3 px-3 py-2 rounded-lg items-center'":"relative w-full bg-slate-500 overflow-x-auto text-white flex justify-between gap-3 px-3 py-2 rounded-lg items-center'"}  key={index}>
                         
   
-                          <AiFillEye className='cursor-pointer hover:scale-[1.4]'/>
+                          <Link to={`/advertisement/${item.place._id}`} className='cursor-pointer flex items-center'><AiFillEye className=' hover:scale-[1.4]'/></Link>
                             <p className="">{index + 1}.</p>
                             <p className="font-bold">{item?.place.name}</p>
                             <p className="text-green-400">CheckIn : {item.checkInDate.slice(0, 10)}</p>

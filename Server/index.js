@@ -275,36 +275,62 @@ app.delete('/api/v1/delete/:id', async (req, res) => {
 // ==============New Booking=================
 
 app.post('/api/v1/new-booking', async (req, res) => {
-    const { productId,place, price, checkInDate, checkOutDate,stayNumber,rooms} = req.body;
+    const { productId,place, price, checkInDate, checkOutDate,stayNumber,rooms,owner} = req.body;
     try {
         const { token } = req.cookies;
         const SECRET_KEY = process.env.JWT_SECRET;
         jwt.verify(token, SECRET_KEY, {}, async (err, user) => {
             if (err) res.json({ success: false, message: "Error in JWT validation" })
            
-            const fetchData = await Bookings.create({ place,stayNumber, checkInDate, checkOutDate,name:user.id, phone:user.phone, price });
+            const fetchData = await Bookings.create({ place,stayNumber, checkInDate, checkOutDate,name:user.id, phone:user.phone, price,owner });
             const advert = await Advertisement.findById(productId);
             const roomNew = advert.roomNumber - rooms;
             res.json({ success: true, message: "Booking Made Successfully", fetchData })
             const updateAdvert=await Advertisement.findByIdAndUpdate(productId,{roomNumber: roomNew})
         })
     } catch (error) {
-        
+        console.log(error)
     }
 })
 
 // ================== User Bookings=========================
 
 app.post('/api/v1/user-bookings', async(req, res) => {
-    
-    const { id } = req.body;
-    // console.log(id)
-    const fetchData = await Bookings.find({ name: id }).populate("place").sort({createdAt:-1});
-    res.json({ fetchData });
+    try {
+        const { id } = req.body;
+        // console.log(id)
+        const fetchData = await Bookings.find({ name: id }).populate("place").sort({createdAt:-1});
+        res.json({ fetchData });
+    } catch (error) {
+        console.log(error)
+    }
+
 })
 
+// ============ Admin Bookings List===================
+app.post('/api/v1/admin-bookings', async (req, res) => {
+    try {
+        const { id } = req.body;
+        const fetchData = await Bookings.find({ owner: id }).populate("place").populate("name").sort({ createdAt: -1 });
+        res.json({success:true,msg:"Data fetched successfully",fetchData});
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// ================= Delete Booking ===========================
+app.delete('/api/v1/deleteBooking/:id', async (req, res) => {
+    try {
+        const  id  = req.params.id;
+        const deleteData = await Bookings.findByIdAndDelete(id);
+        res.json({success:true,msg:"Data deleted successfully"});
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 // ================= Search Advertisement By Date and Address =========
+
 app.post('/api/v1/search', async (req, res) => {
     try {
         const { checkInDate, checkOutDate, address } = req.body;
