@@ -207,13 +207,22 @@ app.post('/my-advertisements', async (req, res) => {
     //    ===============Get Ad by Id ==============
     app.get('/api/v1/Advertisement/:id', async (req, res) => {
         const id = req.params.id;
+        console.log(id)
         try {
-            const fetchData = await Advertisement.findById({ _id: id });
+            const fetchData = await Advertisement.findById(id);
             res.json({success:true,fetchData})
         } catch (error) {
             console.log(error)
         }
     })
+
+// ============= Get Name=================================
+app.get('/api/v1/AdsName/:id', async (req, res) => {
+    console.log(req.params.id)
+    const id = req.params.id;
+    const fetchData = await Advertisement.findById(id);
+    res.json({fetchData})
+}) 
 
 
 // ======================== Update Advertisement =====================
@@ -282,6 +291,16 @@ app.post('/api/v1/new-booking', async (req, res) => {
     } catch (error) {
         
     }
+})
+
+// ================== User Bookings=========================
+
+app.post('/api/v1/user-bookings', async(req, res) => {
+    
+    const { id } = req.body;
+    // console.log(id)
+    const fetchData = await Bookings.find({ name: id }).populate("place").sort({createdAt:-1});
+    res.json({ fetchData });
 })
 
 

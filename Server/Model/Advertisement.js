@@ -20,7 +20,7 @@ const AdvertisementSchema = new mongoose.Schema({
         type: [String],
     },
     maxPeople: {
-        type: String,
+        type: Number,
         required: true
     },
     images: {

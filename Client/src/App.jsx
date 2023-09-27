@@ -11,6 +11,7 @@ import MyAdvertisement from './components/layout/Comps/MyAdvertisement';
 import Homepage from './components/layout/Comps/Homepage';
 import WishList from './components/layout/Comps/WishList';
 import SingleAdertisementPage from './components/layout/Comps/SingleAdertisementPage';
+import UserBookings from './components/layout/Comps/UserBookings';
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -30,6 +31,7 @@ const App = () => {
                     <Route path='/my-account/my-advertisements/advertisement/:id' element={<AddAdvertisement/>} />
                     <Route path='/add-advertisement' element={<AddAdvertisement/>} />
                     <Route path='/wishlist' element={<WishList />} />
+
                     <Route path='/advertisement/:id' element={<SingleAdertisementPage/>} />
                 </Routes>
             </div>

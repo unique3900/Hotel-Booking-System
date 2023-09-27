@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../Context/UserContext'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import MyAdvertisement from './MyAdvertisement';
+import UserBookings from './UserBookings';
 
 const MyProfile = () => {
     const { user, setUser, loading } = useContext(UserContext);
@@ -47,6 +48,13 @@ const MyProfile = () => {
           
           subpage == 'my-profile' && (
             <h1>Hey</h1>
+          )
+        }
+
+{
+          
+          subpage == 'my-bookings' && (
+            <UserBookings/>
           )
         }
         

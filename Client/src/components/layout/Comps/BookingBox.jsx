@@ -83,7 +83,7 @@ const BookingBox = ({productId,price,maxStay,place,roomAvailable,checkInDate,che
     </div>
     
   
-          <button onClick={handleBookSubmit} className="bg-[#00388D] w-full px-3 py-2 text-white">Book  {numberofNights>0 && (
+          <button  onClick={handleBookSubmit} className={roomAvailable>0? "bg-[#00388D] w-full px-3 py-2 text-white":"bg-[#a4312f] w-full px-3 py-2 text-white" }disabled={roomAvailable<=0?true:false}>{roomAvailable<=0? "Sorry Booking Full":"Book"}   {roomAvailable>0 && numberofNights>0 && (
               <span className="">for NPR {numberofNights *price} /-</span>
           )} </button>
 </div>
