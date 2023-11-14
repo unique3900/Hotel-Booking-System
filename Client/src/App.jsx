@@ -13,6 +13,7 @@ import WishList from './components/layout/Comps/WishList';
 import SingleAdertisementPage from './components/layout/Comps/SingleAdertisementPage';
 import UserBookings from './components/layout/Comps/UserBookings';
 import AdminBookings from './components/layout/Comps/AdminBookings';
+import ChangePassword from './components/layout/Comps/ChangePassword';
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8080';
@@ -27,6 +28,7 @@ const App = () => {
                     <Route path='/' element={<Homepage/>}/>
                     <Route path='/login' element={<Login/>} />
                     <Route path='/register' element={<Register />} />
+                    <Route path='/change-password/:email' element={<ChangePassword />} />
                     <Route path='/my-account/:subpage?' element={<MyProfile />} />
                     <Route path='/my-account/my-advertisements/add-advertisement' element={<AddAdvertisement/>} />
                     <Route path='/my-account/my-advertisements/advertisement/:id' element={<AddAdvertisement/>} />

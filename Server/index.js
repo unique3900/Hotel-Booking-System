@@ -104,6 +104,26 @@ app.get('/api/v1/profile', async (req, res) => {
     }
 
 });
+// ========================= Change Password ==============
+app.post('/api/v1/change-password', async (req, res) => {
+    const { email,oldPassword ,password } = req.body;
+    const SECRET_KEY = process.env.JWT_SECRET;
+    const { token } = req.cookies;
+    try {
+        
+        const op = await User.findOne({email});
+        const pwdCheck=bcrypt.compareSync(oldPassword,op.password)
+            if (pwdCheck) {
+               const data= await User.findByIdAndUpdate(op._id,{password:bcrypt.hashSync(password, 10)})
+                res.json({success:true,message:"Password Updated Successfully",data})
+            } else {
+                res.json({success:false,message:"Old Password Doesn't Match"})
+            }
+    } catch (error) {
+        console.log(error)
+        console.log("Internal Server error changing password",error)
+    }
+})
 
 app.post('/api/v1/upload-ad-img', async (req, res) => {
     const { imageURL } = req.body;

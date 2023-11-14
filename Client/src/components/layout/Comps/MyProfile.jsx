@@ -10,12 +10,13 @@ const MyProfile = () => {
     const navigate = useNavigate();
     const { subpage } = useParams(); 
 
-    // useEffect(() => {
-    //   if (!user || !loading) {
-    //       alert("Login to access this page")
-    //            navigate('/login')
-    //         }
-    // }, [user])
+    useEffect(() => {
+      // if (!user || !loading) {
+      //     alert("Login to access this page")
+      //          navigate('/login')
+      //       }
+      console.log(user)
+    }, [user])
     
 
     
@@ -47,7 +48,25 @@ const MyProfile = () => {
         {
           
           subpage == 'my-profile' && (
-            <h1>Hey</h1>
+            <div className="flex flex-col px-5 py-4 w-full gap-5 ">
+                <h2 className="text-center font-bold text-xl">Your Profile</h2>
+              <div className="flex flex-row justify-start gap-5">
+                <h3 className="">Name:</h3>
+                <h4 className="">{user.fullName }</h4>
+                </div>
+              <div className="flex flex-row justify-start gap-5">
+                <h3 className="">Email:</h3>
+                <h4 className="">{user.email }</h4>
+                </div>
+              <div className="flex flex-row justify-start gap-5">
+                <h3 className="">Phone Number:</h3>
+                <h4 className="">{user.phone }</h4>
+                </div>
+              <div className="flex flex-col lg:flex-row justify-start gap-5">
+                <Link to={`/change-password/${user.email}`} className="w-full px-3 py-2 text-center text-white font-bold bg-[#9333ea] ">Change Password</Link>
+                <Link to={'/update-profile'} className="w-full px-3 py-2 text-center text-white font-bold bg-[#6dea33] ">Update Profile</Link>
+                </div>
+            </div>
           )
         }
 
