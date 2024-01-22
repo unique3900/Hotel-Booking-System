@@ -61,7 +61,7 @@ const Navbar = () => {
                 ) : (
                         <div className="flex items-center justify-between gap-2">
                                 <BiLogIn className="w-10 h-10 cursor-pointer" onClick={handleLogout}>Logout</BiLogIn>
-                            <Link to={`/my-account`} className="flex gap-1 items-center cursor-pointer bg-gray-200 rounded-full p-3">
+                            <Link to={`/my-account/my-profile`} className="flex gap-1 items-center cursor-pointer bg-gray-200 rounded-full p-3">
                                 <BiUserCircle className="w-10 h-10 " />
                                 <p className="italic whitespace-pre-wrap ">{user.fullName }</p>
                                 </Link>

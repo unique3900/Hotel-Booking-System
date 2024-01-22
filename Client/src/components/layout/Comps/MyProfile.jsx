@@ -64,7 +64,7 @@ const MyProfile = () => {
                 </div>
               <div className="flex flex-col lg:flex-row justify-start gap-5">
                 <Link to={`/change-password/${user.email}`} className="w-full px-3 py-2 text-center text-white font-bold bg-[#9333ea] ">Change Password</Link>
-                <Link to={'/update-profile'} className="w-full px-3 py-2 text-center text-white font-bold bg-[#6dea33] ">Update Profile</Link>
+                {/* <Link to={'/update-profile'} className="w-full px-3 py-2 text-center text-white font-bold bg-[#6dea33] ">Update Profile</Link> */}
                 </div>
             </div>
           )
